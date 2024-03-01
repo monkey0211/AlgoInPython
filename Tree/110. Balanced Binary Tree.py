@@ -6,9 +6,10 @@ class TreeNode:
         self.left = left
         self.right = right
 class Solution:
-    def isBalanced(self, root: Optional[TreeNode]) -> bool:
-        # divide conquer: 1)both children are BBT 2) height <= 1
+      # divide conquer: 1)both children are BBT 2) height <= 1
         # 需要定义一个helper函数 两个返回值: isBalanced, height
+    def isBalanced(self, root: Optional[TreeNode]) -> bool:
+    
         isBalanced, height = self.validate(root)
         return isBalanced
 

@@ -20,6 +20,7 @@ class Solution:
 
         if left and right:
             return root
+        #如果只有一边有东西 只需要return有东西的一边
         if left: return left
         if right: return right
         return None
