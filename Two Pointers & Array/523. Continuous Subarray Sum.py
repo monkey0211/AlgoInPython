@@ -1,3 +1,4 @@
+#基本题subarray sum: https://www.jiuzhang.com/solutions/subarray-sum/
 class Solution:
     def checkSubarraySum(self, nums: List[int], k: int) -> bool:
         if k == 0: return False
