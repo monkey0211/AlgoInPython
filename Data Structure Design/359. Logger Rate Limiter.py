@@ -23,7 +23,6 @@ class Logger:
         self.queue = collections.deque()
         self.set = set()
 
-
     def shouldPrintMessage(self, timestamp: int, message: str) -> bool:
 
         while self.queue and timestamp - self.queue[0][0] >= 10:

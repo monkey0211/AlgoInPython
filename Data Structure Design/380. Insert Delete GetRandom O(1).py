@@ -33,7 +33,7 @@ class RandomizedSet:
             return True
         return False     
 
-    def getRandom(self) -> int
+    def getRandom(self) -> int:
         prob = random.randint(0, len(self.list)-1)
         return self.list[prob]
         

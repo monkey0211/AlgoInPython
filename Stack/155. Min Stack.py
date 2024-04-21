@@ -1,5 +1,5 @@
 class MinStack:
-
+  # 需要O(1) getMin, 所以需要两个stack: stack and minStack(每次拿到一个val 把小的放入minStack)
     def __init__(self):
         self.stack = []
         self.minstack = []
