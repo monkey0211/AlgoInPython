@@ -5,7 +5,7 @@ class Solution:
         prefix = 0
         cnt = 0
         counter = {} # 存之前的prefix
-        counter[0] = 1 # why? 
+        counter[0] = 1 
         for i in range(len(nums)):
             prefix += nums[i]
        
