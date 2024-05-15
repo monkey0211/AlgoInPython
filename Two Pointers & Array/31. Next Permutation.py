@@ -1,4 +1,5 @@
 class Solution:
+    # 找到此数组的next greater permutation number.
     # 从右往左遍历 找到第一个peak, 拿到peak的前一个元素nums[k](此时k=i-1).
     # 再重新遍历.找peak之后的第一个比nums[k]大的元素交换nums[j], nums[peak-1]
     # (k+1)后面的元素需要重新sort 

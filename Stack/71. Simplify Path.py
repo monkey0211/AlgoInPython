@@ -1,13 +1,18 @@
 class Solution:
+    #先split成list. 用stack
+    # 如果遇到“..”: 
+    #      如果有stack就pop. 如果“.” or "", continue. else stack.append
     def simplifyPath(self, path: str) -> str:
-        pathlist = path.split("/")
         stack = []
-        for s in pathlist:
-            if s == "." or s == "":
+        pathList = path.split("/")
+        
+        for string in pathList:
+            if string == "." or string == "":
                 continue
-            elif s == "..":
+            elif string == "..":
                 if stack:
                     stack.pop()
             else:
-                stack.append(s)
+                stack.append(string)
+                
         return "/" + "/".join(stack)
