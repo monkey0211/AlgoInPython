@@ -47,7 +47,7 @@ class Solution:
     def depthSum(self, nestedList: List[NestedInteger]) -> int:
         level = 0
         total = 0
-        queue = collections.deque(nestedList)
+        queue = collections.deque(nestedList) #要把整个nestedList放进去, 因为不是level traversal 是全部遍历 带int的为第一层.
         
         while queue:
             level += 1
@@ -56,6 +56,6 @@ class Solution:
                 if n.isInteger():
                     total += n.getInteger()*level
                 else:
-                    queue.extend(n.getList())
+                    queue.extend(n.getList()) #打开list取出来 放入queue 这样下一轮会看到list里面的元素
         return total
         

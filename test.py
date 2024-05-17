@@ -1,29 +1,38 @@
-from math import sqrt
-from typing import List
-import heapq
+import collections
 
-class TreeNode:
-    def __init__(self, val, left = None, right = None):
-        self.val = val
-        self.left = left
-        self.right = right
+class Test:
+    def mergeTwo(self, nums1, nums2):
+        # @return a sorted nums
+        nums = []
+        i, j = 0, 0
+        while i < len(nums1) and j < len(nums2):
+            if nums1[i] < nums2[j]:
+                nums.append(nums1[i])
+                i += 1
+         
+            elif nums1[i] > nums2[j]:
+                nums.append(nums2[j])
+                j += 1
+          
+            else:
+                nums.append(nums2[j])
+                i += 1
+                j += 1
+           
+        while i < len(nums1):
+            nums.append(nums1[i])
+            i += 1
+       
+        while j < len(nums2):
+            nums.append(nums2[j])
+            j += 1
+       
+        return nums
+
+test = Test()
+print(test.mergeTwo([1,3,4],[2,3,5]))
         
-class Solution:
-    
-    def rangeBST(self, root, low, high):
-        if not root: return 0
-  
-        if root.val < low:
-            return self.rangeBST(root.right, low, high)
-        if root.val > high:
-            return self.rangeBST(root.left, low, high)
-        return root.val + self.rangeBST(root.left, low, high) + self.rangeBST(root.right, low, high)
-    
+            
 
-root = TreeNode(4)
-left = TreeNode(1)
-right = TreeNode(8)
-root.left = left
-root.right = right
-test = Solution()
-print(test.rangeBST(root, 3, 9))
+                
+                

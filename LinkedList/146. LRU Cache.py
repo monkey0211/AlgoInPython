@@ -30,19 +30,19 @@ class LRUCache:
             return node.value
 
     def put(self, key: int, value: int) -> None:
-        node = Node(key, value) #注意这里的处理 需要先new一个新node
-        if key not in self.dict:         
-            self.add(node)     
+        newnode = Node(key, value) #注意这里的处理 需要先new一个新node
+        if key in self.dict: # 这里要remove oldnode, add newnode
+            oldnode = self.dict[key]
+            self.remove(oldnode)
+            self.add(newnode)
+            self.dict[key] = newnode
         else:
-            prev_node = self.dict[key] # 这里要remove prev_node, add node
-            self.remove(prev_node)
-            self.add(node)
-        
-        self.dict[key] = node # anyway都要更新dict
-        if len(self.dict) > self.capacity:
-            node_to_del = self.head.next
-            self.remove(node_to_del) #这里是remove least recency used 就是头节点
-            del self.dict[node_to_del.key]
+            self.add(newnode) #每次的add/remove dict里面都要一起
+            self.dict[key] = newnode
+            if len(self.dict) > self.capacity:
+                toRemove = self.head.next
+                self.remove(toRemove)
+                del self.dict[toRemove.key]    
         
     # head -> 0 -> 1 -> tail
     #只需要用到add to tail(this is the dummy tail node)
