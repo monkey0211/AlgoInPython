@@ -58,4 +58,21 @@ class Solution:
                 else:
                     queue.extend(n.getList()) #打开list取出来 放入queue 这样下一轮会看到list里面的元素
         return total
+    
+    # method 2: DFS
+    # define dfs: total sum of the current level
+    def depthSum(self, nestedList:List[NestedInteger]) -> int:
+        level = 1
+        return self.dfs(level, nestedList)
+    
+    def dfs(self, level, currList):
+        # 站在当前层看: 只需要定义每一层的参数(eg currTotal)
+        currTotal = 0
+        for item in currList:
+            if item.isInteger():
+                currTotal += item.getInteger() * level
+            else:
+                currTotal += self.dfs(level + 1, item.getList())
+        return currTotal
+        
         

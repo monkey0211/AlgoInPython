@@ -24,7 +24,7 @@ class Solution:
                 self.res.append(triple) #here to update final results
                 left += 1
                 right -= 1
-                while left < right and nums[left] == nums[left-1]:
+                while left < right and nums[left] == nums[left-1]:#此时要left-1, 因为left已经前进了一个 需要和前面的比较
                     left += 1
            
             elif left < right and nums[left] + nums[right] < target:

@@ -23,3 +23,35 @@ class Solution:
                         queue.append((newx, newy)) 
                         grid[newx][newy] = 1
         return -1 #此处要return -1, not step
+
+# DFS: return any path(不一定最短)
+    def shortestPathBinaryMatrix(self, grid):
+        if not grid or grid[0][0] != 0 or grid[-1][-1] != 0: return -1
+        tmp =[(0,0)]
+        res = []
+        grid[0][0] = 1
+        self.dfs(res, tmp, grid, 0, 0)
+        return res
+    
+    def dfs(self,res, tmp, grid, x, y):
+        if len(res) >= 1:
+            return
+        if x == len(grid) - 1 and y == len(grid[0]) - 1:
+            res.extend(tmp[:])
+            return 
+    
+        dx = [0, 1, 0, -1, 1, 1, -1, -1]
+        dy = [1, 0, -1, 0, -1, 1, -1, 1]   
+        for i in range(8):
+            newx = x + dx[i]
+            newy = y + dy[i]
+            if 0 <= newx < len(grid) and 0 <= newy < len(grid[0]) and grid[newx][newy] == 0:
+                grid[newx][newy] = 1 
+                tmp.append((newx, newy))
+                self.dfs(res, tmp, grid, newx, newy)
+                tmp.pop()
+                grid[newx][newy] = 0      
+   
+
+
+    

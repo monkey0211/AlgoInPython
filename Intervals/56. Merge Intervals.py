@@ -1,4 +1,7 @@
 class Solution:
+    # Time o(nlogn) for sorting, Space o(1)
+    # if current interval does not overlap with the previous: append it.
+    # else, if overlap: update previous ending to be max(current, previous)
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
       
         intervals = sorted(intervals)
