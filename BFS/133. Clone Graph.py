@@ -26,15 +26,16 @@ class Solution:
                     queue.append(nei)
                     visited.add(nei)
         
-        #2. copy all nodes, store in old->new mapping. 
+        #2. for every visited, copy all nodes, store in old->new mapping. 
         mapping = {} #用来存 A-> A'
         for n in visited:
             mapping[n] = Node(n.val)
             
-        #3. copy all neighbors (edges)
+        #3. for every visited, copy all neighbors (edges)
         for n in visited:
             for nei in n.neighbors:
                 newneighbor = mapping[nei]
                 mapping[n].neighbors.append(newneighbor)
-                
+        
+        #4. return new root      
         return mapping[node]

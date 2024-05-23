@@ -1,6 +1,8 @@
 import collections
 import heapq
 from typing import List
+# heap: silimar to LC23: https://leetcode.com/problems/merge-k-sorted-lists/submissions/1219672656/
+# need to re-write comparator: 
 List.__lt__ = lambda x, y: (x[0] < y[0])
 class Solutions:
     def mergeKSortedArray(self, arrs): 
@@ -12,7 +14,7 @@ class Solutions:
         while heap:
             nums = heapq.heappop(heap)
             res.append(nums[0])
-            if 0 < len(nums)-1:   
+            if len(nums)-1 > 0:   
                 nums = nums[1:]
                 heapq.heappush(heap, nums)
         return res

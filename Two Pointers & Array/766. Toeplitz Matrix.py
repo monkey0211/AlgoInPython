@@ -13,6 +13,7 @@ class Solution:
         return True
     
     # method 2: compare with previous diagnal element
+    # space o(1) compare: matrix[i][j] != matrix[i-1][j-1]
 
     def isToeplitzMatrix(self, matrix: List[List[int]]) -> bool:
         if not matrix: return True

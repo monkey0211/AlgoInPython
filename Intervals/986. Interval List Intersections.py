@@ -1,4 +1,5 @@
 class Solution:
+    # two pointer: find the intersection
     def intervalIntersection(self, firstList: List[List[int]], secondList: List[List[int]]) -> List[List[int]]:
         res = []
         if not firstList or not secondList: return res
