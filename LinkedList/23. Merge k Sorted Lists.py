@@ -3,6 +3,9 @@
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
+
+# 先把所有的head都放入heap, while heap挨个pop, pop出来的如果有下一个就接着push to heap. 
+# node move to next. 
 # 必须要写comparator: 
 ListNode.__lt__ = lambda x, y: (x.val < y.val)
 
