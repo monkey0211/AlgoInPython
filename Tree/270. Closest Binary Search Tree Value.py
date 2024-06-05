@@ -12,7 +12,7 @@ class Solution:
 
         while root:
             if abs(root.val  - target) < abs(res - target):
-                res = root.val
+                res = root.val #需要不断更新res: res is a potential result. 
             elif abs(root.val  - target) == abs(res - target):
                 res = min(root.val, res)
 

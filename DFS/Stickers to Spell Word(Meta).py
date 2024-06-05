@@ -1,4 +1,4 @@
-# Meta version: https://leetcode.com/discuss/interview-question/4835013/Meta-Minimum-Stickers-Required
+# Meta version:(ref LC691) https://leetcode.com/discuss/interview-question/4835013/Meta-Minimum-Stickers-Required
 
 
 # Problem Description:
