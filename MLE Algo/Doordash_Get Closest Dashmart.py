@@ -27,14 +27,10 @@ class Solutions:
         for x, y in locations:
             res.append(int(city[x][y]))
             
-        return res
-
-   
-        
-       
-        
+        return res     
 
 # Asked as a follow-up - What if we can traverse X except the ones which is surrounded by Xs at all 4 directions? What would be the solution?
+# answer: Traverse and mark as "Y"
 city = [
  ['X', ' ', ' ', 'D', ' ', ' ', 'X', ' ', 'X'], # 0
  ['X', ' ', 'X', 'X', ' ', ' ', ' ', ' ', 'X'], # 1

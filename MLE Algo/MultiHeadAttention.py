@@ -7,7 +7,7 @@ class MultiHeadAttention(nn.Module):
         self.d_k = d_k
         self.d_v = d_v
         
-        #nn. Linear(n,m) is a module that creates single layer feed forward network with n inputs and m output.
+        #nn.Linear(n,m) is a module that creates single layer feed forward network with n inputs and m output.
         self.fc_q = nn.Linear(d_k_, n_head * d_k)
         self.fc_k = nn.Linear(d_k_, n_head * d_k)
         self.fc_v = nn.Linear(d_v_, n_head * d_v)
