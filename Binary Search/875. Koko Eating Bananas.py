@@ -1,5 +1,6 @@
 class Solution:
     # binary search, 二分答案. 用mid计算getHours(mid)
+    # time O(nlogm), space O(1). n:length of piles, m: max(piles)
     def minEatingSpeed(self, piles: List[int], h: int) -> int:
         left = 1
         right = max(piles)

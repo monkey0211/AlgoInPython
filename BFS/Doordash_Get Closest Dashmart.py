@@ -1,7 +1,7 @@
 import collections
 
 class Solutions:
-# doordash: 
+# doordash: 变种:https://leetcode.com/problems/walls-and-gates/description/
     def getClosestDashmart(self, city, locations):
         res = []
         queue = collections.deque()
@@ -11,6 +11,7 @@ class Solutions:
                 if city[i][j] == "D":
                     city[i][j] = "0"
                     queue.append((i, j))
+        #所有点共用一个common queue
         while queue:
             x, y = queue.popleft()
 
