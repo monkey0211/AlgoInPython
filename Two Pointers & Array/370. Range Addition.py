@@ -16,26 +16,4 @@ class Solution:
             res[i] += res[i-1]
         return res
 
-    # Doordash: 改为2D matrix, updates是每个row的updates. 
-    def get2DModifiedArray(self, matrix, updates: List[List[int]]) -> List[int]:
-        changes = [0]*len(matrix)
-        for start, end, val in updates:
-            changes[start] += val
-            end += 1
-            if end < len(changes):
-                changes[end] -= val
-                
-        for i in range(len(matrix)):
-            for j in range(len(matrix[0])):
-                if i == 0:
-                    matrix[i][j] = changes[i]
-                else:
-                    matrix[i][j] = matrix[i-1][j] + changes[i]
-        return matrix
-
-matrix = [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]
-updates = [[1,3,2],[2,4,3],[0,2,-2]]
-test = Solution()
-print(test.get2DModifiedArray(matrix, updates))
-        
-            
+  
