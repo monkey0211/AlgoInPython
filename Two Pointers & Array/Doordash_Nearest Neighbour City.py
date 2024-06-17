@@ -1,5 +1,13 @@
 import collections
+# Doordash: Nearest Neighbour City. 
+# ref: LC1779: https://leetcode.com/problems/find-nearest-point-that-has-the-same-x-or-y-coordinate/
 
+# A number of cities are arranged on a graph that has been divided up like an ordinary Cartesian plane. 
+# Each city is located at an integral (x, y) coordinate intersection. City names and locations are given in the form of three arrays: c, x, and y, 
+# which are aligned by the index to provide the city name (c[i]), and its coordinates, (x[i], y[i]). 
+# Determine the name of the nearest city that shares either an x or a y coordinate with the queried city. 
+# If no other cities share an x or y coordinate, return 'NONE'. If two cities have the same distance to the queried city, q[i], consider the one with an alphabetically shorter name (i.e. 'ab' < 'aba' < 'abb') as the closest choice. 
+# The distance is the Manhattan distance, the absolute difference in x plus the absolute difference in y.
 class Solutions:
     def getClosestCities(self, cities, xValues, yValues, queries):
         citymap = {}
@@ -31,9 +39,6 @@ class Solutions:
                         if cities[i]<cities[res]:
                             res = i
         return res
-
-    # def compareTo(self, lhs, rhs)->int:
-    #     if lhs < rhs: 
         
 test = Solutions()
 cities = ["axx", "axy", "az", "axd", "aa", "abc", "abs", "p"]
