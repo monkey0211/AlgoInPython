@@ -1,11 +1,12 @@
 class Solution:
+    # binary search.time  O(nlogn) space O(n)
     def maxProfitAssignment(self, difficulty: List[int], profit: List[int], worker: List[int]) -> int:
 
         # create tuple of (dificilty, profit) and sort by difficulty
         diff_prof = [[difficulty[i], profit[i]]for i in range(len(profit))]
         diff_prof.sort(key = lambda x: (x[0], x[1]))
 
-        # need to make profit be the max up to i
+        # the maximum profit at each difficulty. eg [1,99][2,1]->[1,99][2,99]
         prev = diff_prof[0][1]
         for i in range(len(diff_prof)):
             diff_prof[i][1] = max(diff_prof[i][1], prev)

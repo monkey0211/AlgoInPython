@@ -15,7 +15,7 @@ class Solution:
     def compare_old_and_updated_menus(self, root_o: Node, root_u: Node) -> int:
         return self.dfs_compare(root_o, root_u)
 
-    def count_nodes(self, root: Node) -> int:
+    def count_nodes(self, root: Node) -> int: # count all nodes from root to all children
         if not root:
             return 0
         num = 1
@@ -26,24 +26,25 @@ class Solution:
     def dfs_compare(self, root_o: Node, root_u: Node) -> int:
         if not root_o and not root_u:
             return 0
-        if not root_o:
+        if not root_o:              # add: only have new menu
             return self.count_nodes(root_u)
-        if not root_u:
+        if not root_u:              # delete: only have old menu
             return self.count_nodes(root_o)
-        if root_o.key != root_u.key:
+        if root_o.key != root_u.key:  # for menu changes
             return self.count_nodes(root_u) + self.count_nodes(root_o)
 
+        # below are when root_o.key == root_u.key:
         diff_cnt = 0
         if root_o.val != root_u.val:
             diff_cnt += 1
         
-        origin_map = {}
+        origin_map = {} # create a map to store old menu's children(original was a list)
         visited = set()
         for child in root_o.children:
             origin_map[child.key] = child
 
         for child in root_u.children:
-            if child.key in origin_map:
+            if child.key in origin_map: #
                 visited.add(child.key)
                 diff_cnt += self.dfs_compare(origin_map[child.key], child)
             else:
