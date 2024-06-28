@@ -8,4 +8,5 @@ class Solution:
             if nums[right] != nums[right-1]:
                 left += 1
                 nums[left] = nums[right]
-        return left + 1
+        print(nums[:left + 1]) #the array after removing duplicate
+        return left + 1 
