@@ -1,4 +1,6 @@
 # https://www.youtube.com/watch?v=KYmlcich2_k
+import random
+
 class Solution:
     def __init__(self, w:List[int]):
         self.prefix_sum = [0] * (len(w))
@@ -23,12 +25,9 @@ class Solution:
             else:
                 left = mid
         
-        if self.prefix_sum[left] >= target: #先看left
+        if self.prefix_sum[left] >= target: #先看left, 如果left都大 说明都大
             return left 
         else:
             return right 
 
-
-# Your Solution object will be instantiated and called as such:
-# obj = Solution(w)
-# param_1 = obj.pickIndex()
+#如何测试: 1) fix target 比较output 2)call this multiple times 

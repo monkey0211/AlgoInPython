@@ -1,4 +1,5 @@
 class Solution:
+    # method 1: heap
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
         import heapq
         heap = []
@@ -13,3 +14,6 @@ class Solution:
         while heap: # heap is same as stack: use while to get elements
             res.append(heapq.heappop(heap)[1])
         return res
+
+    # method 2: binary search
+    

@@ -1,4 +1,5 @@
 class Solution:
+    # # 有加减乘除 无括号
     # method 1: 不用stack: time O(n) space O(1)
     # 1. 如果ch.isdigit() 记录number
     # 2. 如果当前ch in "+-/*", 看previous sign(op): currTotal此时累进计算前面的+-*/

@@ -1,22 +1,24 @@
 # Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
+from typing import Optional
+import collections 
+
+
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
 class Solution:
     # method 1: DFS preorder traversal
-    def sumNumbers(self, root: Optional[TreeNode]) -> int:
+    def sumNumbers1(self, root: Optional[TreeNode]) -> int:
         if not root: return 0
         res = []
-        tmp = ""
-        self.dfs(root, res, tmp)
-        print(res)
+        tmp = "" # the path from root to leaf
+        self.dfs(root, res, tmp) 
         return sum(res)
 
     def dfs(self, node: TreeNode, res: list, tmp: str):
-        # if not node:
-        #     return
+    
         if node.left == None and node.right == None:
             tmp += str(node.val)
             res.append(int(tmp))
@@ -28,7 +30,7 @@ class Solution:
             self.dfs(node.right, res, tmp)
     
     # method 2: BFS queue
-    def sumNumbers(self, root: Optional[TreeNode]) -> int:
+    def sumNumbers2(self, root: Optional[TreeNode]) -> int:
         if not root: return 0
         total = 0
         queue = collections.deque()
@@ -44,3 +46,12 @@ class Solution:
             if node.right:
                 queue.append((node.right, pathSum*10 + node.right.val))
         return total
+
+root = TreeNode(10)
+left = TreeNode(2)
+right = TreeNode(3)
+root.left = left
+root.right = right
+test = Solution()
+print(test.sumNumbers1(root))
+print(test.sumNumbers2(root))

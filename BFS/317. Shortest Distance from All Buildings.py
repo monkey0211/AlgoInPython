@@ -1,18 +1,25 @@
 class Solution:
+    # 1. 先计算有多少个building
+    # 2. 从每个1(building)开始bfs, 记录dist and count(该点经过了多少个building)
+    # 3. 从每个0开始, if count==k, 更新minDist
     def shortestDistance(self, grid: List[List[int]]) -> int:
         if not grid: return 0
         building = 0
+        #dist记录(i, j)到每个building“1”的距离加和, 所以最后是k个building的距离和
+        #count记录(i,j)可以经过多少个building
         dist = [[0]*len(grid[0]) for i in range(len(grid))]
         count = [[0]*len(grid[0]) for i in range(len(grid))]
+        
+        # 先计算有多少个building
         for i in range(len(grid)):
             for j in range(len(grid[0])):
                 if grid[i][j] == 1:
                     building += 1
-                    
+        #
         for i in range(len(grid)):
             for j in range(len(grid[0])):
                 if grid[i][j] == 1:
-                    self.bfs(grid, i, j, count, dist) #不断更新count and dist并return
+                    self.bfs(grid, i, j, count, dist)
         minDist = inf
         for i in range(len(grid)):
             for j in range(len(grid[0])):
@@ -42,3 +49,8 @@ class Solution:
                         visited.add((newi, newj))
                         dist[newi][newj] += step
                         count[newi][newj] += 1
+
+        
+
+
+        
