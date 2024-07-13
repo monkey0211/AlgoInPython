@@ -13,10 +13,9 @@ class Solution:
     
     def getShiftedString(self, s):
         diff = ord(s[0])-ord("a") #python字母从97开始 ord("a") = 97. 
-        shifted = "a"
-        if len(s) == 1: return shifted
-
-        for i in range(1, len(s)):
+        shifted = ""
+    
+        for i in range(len(s)):
             #考虑s[i]-diff<0的情况 需要套圈+26. 因为python字母从97开始, 所以取mod, 这样所有情况都+26即可     
             shifted += chr((ord(s[i]) + 26 - diff) % 26)
         return shifted

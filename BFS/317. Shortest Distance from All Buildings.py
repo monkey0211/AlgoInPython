@@ -1,7 +1,7 @@
 class Solution:
-    # 1. 先计算有多少个building
-    # 2. 从每个1(building)开始bfs, 记录dist and count(该点经过了多少个building)
-    # 3. 从每个0开始, if count==k, 更新minDist
+    # BFS time O(mn*mn) space O(mn)
+    # 1. 从每个1(building)开始bfs, 记录dist and count(该点经过了多少个building)
+    # 2. 从每个0开始, if count==building个数, 更新minDist
     def shortestDistance(self, grid: List[List[int]]) -> int:
         if not grid: return 0
         building = 0
@@ -10,16 +10,13 @@ class Solution:
         dist = [[0]*len(grid[0]) for i in range(len(grid))]
         count = [[0]*len(grid[0]) for i in range(len(grid))]
         
-        # 先计算有多少个building
+        # 对每一个building, #bfs更新dist and count, 并计算building个数
         for i in range(len(grid)):
             for j in range(len(grid[0])):
                 if grid[i][j] == 1:
+                    self.bfs(grid, i, j, count, dist) 
                     building += 1
-        #
-        for i in range(len(grid)):
-            for j in range(len(grid[0])):
-                if grid[i][j] == 1:
-                    self.bfs(grid, i, j, count, dist)
+        
         minDist = inf
         for i in range(len(grid)):
             for j in range(len(grid[0])):
