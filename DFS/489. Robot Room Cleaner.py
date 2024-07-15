@@ -53,10 +53,10 @@ class Solution:
 
         for i in range(4):
             newDirection = (direction + i) % 4
-          #  print(newDirection, self.directions)
             newx = x + self.directions[newDirection][0]
             newy = y + self.directions[newDirection][1]
-            if (newx, newy) not in visited and self.robot.move():
+            
+            if (newx, newy) not in visited and self.robot.move(): #move如果是True需要走入下一格, 所以dfs之后需要goBack回退.
                 visited.add((newx, newy))
                 self.dfs(newx, newy, visited, newDirection)
                 self.goBack() #遇到obstacle就backtrack
