@@ -45,3 +45,34 @@ class Solution:
         memo[x][y] = rightPaths + downPaths
         return memo[x][y]
     
+          return len(res)
+    
+    # 如果要求只返回任意一条path
+    def uniquePaths(self, m: int, n: int) -> int:
+        def dfs(x, y, path):
+            # If the robot reaches the bottom-right corner
+            if x == m - 1 and y == n - 1:
+                if not paths: #之前没找到过
+                    paths.append(path + [(x, y)])
+                return
+            
+            # If this position has been computed before, use the memoized paths
+            if (x, y) in memo:
+                return
+        
+            
+            # Move right if possible
+            if y + 1 < n:
+                dfs(x, y + 1, path + [(x, y)])
+            
+            # Move down if possible
+            if x + 1 < m:
+                dfs(x + 1, y, path + [(x, y)])
+            
+            # Store the current paths in memo
+            memo.add((x,y))
+        
+        paths = []
+        memo = set()
+        dfs(0, 0, [])
+        return len(paths)
