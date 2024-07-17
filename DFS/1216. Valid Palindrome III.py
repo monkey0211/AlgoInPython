@@ -15,7 +15,7 @@ class Solution:
         if (i, j, count) in memo: 
             return memo[(i, j, count)]
         
-        if s[i] == s[j]:
+        if s[i] == s[j]: # 如果左右char相等
             res = self.dfs(i + 1, j - 1, s, count, memo) #i,j meet, so still have k budget
         else:
             res = self.dfs(i+1, j, s, count - 1, memo) or self.dfs(i, j-1, s, count-1, memo)

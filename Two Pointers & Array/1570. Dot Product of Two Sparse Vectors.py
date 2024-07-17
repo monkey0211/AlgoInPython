@@ -38,7 +38,7 @@ class SparseVector:
         total = 0
         p, q = 0, 0
         while p < len(self.pairs) and q < len(vec.pairs):
-            if self.pairs[p][0] == vec.pairs[q][0]:
+            if self.pairs[p][0] == vec.pairs[q][0]: #index相等的相乘
                 total += self.pairs[p][1]*vec.pairs[q][1]
                 p += 1
                 q += 1

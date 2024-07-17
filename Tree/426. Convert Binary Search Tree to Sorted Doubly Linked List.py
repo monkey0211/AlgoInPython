@@ -7,7 +7,8 @@
 """
 class Solution:
     # method 1: DFS in-order traverse a tree, get a node list. 
-    # then link each node, and link head and tail. ->need extra space O(n)
+    # then link each node, and link head and tail. 
+    # # time o(n) space o(n).best o(logn)树的深度
     def treeToDoublyList(self, root: 'Optional[Node]') -> 'Optional[Node]':
         if not root: return None
        

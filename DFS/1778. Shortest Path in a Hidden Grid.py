@@ -25,7 +25,7 @@ class Solution(object):
         if not target:
             return -1
 
-        queue = deque([(0, 0, 0)])
+        queue = collections.deque([(0, 0, 0)])
         visited.remove((0, 0))
         endpoint = target[0]
         
