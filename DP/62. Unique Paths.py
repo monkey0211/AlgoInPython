@@ -45,7 +45,7 @@ class Solution:
         memo[x][y] = rightPaths + downPaths
         return memo[x][y]
     
-          return len(res)
+        return len(res)
     
     # 如果要求只返回任意一条path
     def uniquePaths(self, m: int, n: int) -> int:

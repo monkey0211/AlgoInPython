@@ -26,7 +26,7 @@ class Solution:
         return None
 
     # method 2: 用深度 space O(1)
-    # p的parents全部放入set, q向上找, 如果parent in set, 则是LCA
+    # 先计算两个的深度
     def lowestCommonAncestor(self, p: 'Node', q: 'Node') -> 'Node':
         p_depth = self.getDepth(p)
         q_depth = self.getDepth(q)

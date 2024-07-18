@@ -10,7 +10,7 @@ class Solution:
                 right = mid
             else:
                 left = mid
-        #最后无论如何都是返回left的值, 如果不缺, 就return right+k+nums[0]也就是left+1
+        #最后无论如何都是返回left的值(因为缺的都是在找到的数的左边), 如果不缺, 就return right+k+nums[0]也就是left+1
         if self.missingCount(left, nums) >= k:
             return left + k + nums[0]
         elif self.missingCount(right, nums) >= k:

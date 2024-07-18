@@ -1,23 +1,27 @@
 class Solution:
-   # DFS + memo: dfs表示: s[i:j] at current level, is valid palindrome T/F if removing k
-   # memo记住状态memo[(i, j, k)]
+   # dfs表示s[i:j]最多remove多少个可以变成palindrome
+   # time o(n^2) space o(n^2) n is length of string. (because i*j个组合memo)
     def isValidPalindrome(self, s: str, k: int) -> bool:
-        memo = {} 
-        return self.dfs(0, len(s) - 1, s, k, memo)
+        memo = {}
+        return self.dfs(0, len(s) - 1, s, memo) <= k
 
-    def dfs(self, i, j, s, count, memo):
-        # at current level, if this is valid palimdrome if removing k
-        if count < 0:
-            return False
-        if i >= j:
-            return True
+    def dfs(self, i, j, s, memo) -> bool:
+       
+        if i == j:         # i and j meet
+            return 0
+
+        #  Base case 2, only 2 letters remaining.
+        if i == j - 1:
+            return 1 if s[i] != s[j] else 0
+
+        if (i, j) in memo:  # (i, j, count) is a searched state
+            return memo[(i, j)]
         
-        if (i, j, count) in memo: 
-            return memo[(i, j, count)]
-        
-        if s[i] == s[j]: # 如果左右char相等
-            res = self.dfs(i + 1, j - 1, s, count, memo) #i,j meet, so still have k budget
+        ret = 0
+        if s[i] == s[j]:
+            ret = self.dfs(i + 1, j - 1, s, memo)
         else:
-            res = self.dfs(i+1, j, s, count - 1, memo) or self.dfs(i, j-1, s, count-1, memo)
-        memo[(i, j, count)] = res # res is boolean T/F
-        return res
+            ret = 1 + min(self.dfs(i + 1, j, s, memo), self.dfs(i, j - 1, s, memo))
+        memo[(i, j)] = ret  # keep track of bool result of current state
+        
+        return ret

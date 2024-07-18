@@ -8,7 +8,7 @@ class Solution:
                 if word1[j]!=word2[j]:
                     if order.index(word1[j]) > order.index(word2[j]):
                         return False
-                    break #注意break的位置 不能在内层if里, 因为只要字母不相等 任何情况都需要break
+                    break #注意break的位置 不能在内层if里, 因为只要第一个字母不相等 后面不需要再看了
                 else:
                     #剩余的情况 如果len(word1)>len(word2)
                     if  len(word1) > len(word2) and j == len(word2) - 1:

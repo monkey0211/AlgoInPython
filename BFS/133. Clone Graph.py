@@ -8,7 +8,7 @@ class Node:
 
 from typing import Optional
 class Solution:
-    # 1. 得到所有的点bfs. 
+    # 1. 得到所有的点bfs. visited表示
     # 2. 用map存old A->A'的对应关系 
     # 3. 得到所有的new A' 的neighbors(对应关系)
     def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
