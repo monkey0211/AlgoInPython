@@ -1,64 +1,42 @@
-class ListNode:
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
 
-class TreeNode:
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
+class Solution:
+# time O(n) space o(logn)
+    def findSize(self, head: ListNode) -> int:
+        ptr = head
+        c = 0
+        while ptr:
+            ptr = ptr.next
+            c += 1
+        return c
 
-def find_size(head):
-    size = 0
-    while head:
-        size += 1
-        head = head.next
-    return size
+    def sortedListToBST(self, head: ListNode) -> TreeNode:
 
-def sorted_list_to_bst(head):
-    # Function to convert linked list to BST
-    def convert_list_to_bst(left, right):
-        nonlocal head
-        if left > right:
-            return None
-        
-        mid = (left + right) // 2
-        
-        left_child = convert_list_to_bst(left, mid - 1)
-        
-        root = TreeNode(head.val)
-        root.left = left_child
-        
-        head = head.next
-        
-        root.right = convert_list_to_bst(mid + 1, right)
-        return root
-    
-    size = find_size(head)
-    return convert_list_to_bst(0, size - 1)
+        # Get the size of the linked list first
+        size = self.findSize(head)
 
-# Helper function to print the tree in-order (for verification)
-def in_order_traversal(root):
-    result = []
-    if root:
-        result = in_order_traversal(root.left)
-        result.append(root.val)
-        result = result + in_order_traversal(root.right)
-    return result
+        # Recursively form a BST out of linked list from l --> r
+        def convert(l: int, r: int) -> TreeNode:
+            nonlocal head
 
-# Example usage
-# Create a sorted linked list: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
-head = ListNode(1)
-head.next = ListNode(2)
-head.next.next = ListNode(3)
-head.next.next.next = ListNode(4)
-head.next.next.next.next = ListNode(5)
-head.next.next.next.next.next = ListNode(6)
-head.next.next.next.next.next.next = ListNode(7)
+            # Invalid case
+            if l > r:
+                return None
 
-# Convert the linked list to a balanced BST
-bst_root = sorted_list_to_bst(head)
+            mid = (l + r) // 2
 
-# Print the in-order traversal of the BST (should print the numbers in sorted order)
-print(in_order_traversal(bst_root))
+            # First step of simulated inorder traversal. Recursively form
+            # the left half
+            left = convert(l, mid - 1)
+
+            # Once left half is traversed, process the current node
+            node = TreeNode(head.val)
+            node.left = left
+
+            # Maintain the invariance mentioned in the algorithm
+            head = head.next
+
+            # Recurse on the right hand side and form BST out of them
+            node.right = convert(mid + 1, r)
+            return node
+
+        return convert(0, size - 1)

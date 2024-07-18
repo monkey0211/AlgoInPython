@@ -6,7 +6,7 @@
 #         self.right = right
 class Solution:
     # 最后结果输出需要按左->右, 上->下排序 
-    # O(NlogN/k), k is the number of columns
+    # O(k * N/KlogN/k), k is the number of columns and O(n) to get from dict to result.
     def verticalTraversal(self, root: Optional[TreeNode]) -> List[List[int]]:
         if not root: return []
         dict = collections.defaultdict(list) #dict[col] = (row, value)

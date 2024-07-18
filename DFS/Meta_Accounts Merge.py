@@ -1,5 +1,16 @@
 import collections
+# LC721的变形:https://leetcode.com/problems/accounts-merge/submissions/1244670006/.
+# 每个账号对应多个邮箱, 邮箱有重合就表示账号相同, 把相同的账号group起来并返回
+# // === Input ===
+# // A1: alice@yahoo.com, alice_1@gmail.com
+# // A2: bob@facebook.com
+# // A3: alice_1@gmail.com, alice_2@hotmail.com
+# // A4: alice_2@hotmail.com
+# // A5: bob@facebook.com
+# // A6: carol@gmail.com
 
+# // === Output ===
+# // ((A1,A3,A4), (A2,A5), (A6))
 
 class Solution: 
     def accountMerge(self, accounts):
@@ -21,7 +32,7 @@ class Solution:
         keySet = set()
         visited = set()
         for email1 in graph:
-            if not graph[email1]: 
+            if not graph[email1]: #没有其他email, 只有一个key
                 res.append({accountToName[email1]})
                 continue
             restEmails = graph[email1]
@@ -34,8 +45,7 @@ class Solution:
                     self.dfs(email, graph, visited, tmp)
                     
                     for i in range(len(tmp)):
-                        keySet.add(accountToName[tmp[i]])
-                    
+                        keySet.add(accountToName[tmp[i]])   
                     res.append(keySet)
         return res
         

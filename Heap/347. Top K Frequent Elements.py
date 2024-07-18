@@ -13,7 +13,7 @@ class Solution:
         
         while heap: # heap is same as stack: use while to get elements
             res.append(heapq.heappop(heap)[1])
-        return res
+        return res # 如果按顺序就需要reverse
 
     # method 2: binary search/quick select
     # get the frequent dictionary

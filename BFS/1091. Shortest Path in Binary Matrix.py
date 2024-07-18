@@ -23,8 +23,9 @@ class Solution:
                         queue.append((newx, newy)) 
                         grid[newx][newy] = 1
         return -1 #此处要return -1, not step
+    # 如果求最短的一个path, 用dict[newx][newy] = (x, y) 从终点向起点traverse一下
 
-# DFS: return any path(不一定最短)
+# DFS: return any one path(不一定最短)
     def shortestPathBinaryMatrix(self, grid):
         if not grid or grid[0][0] != 0 or grid[-1][-1] != 0: return -1
         tmp =[(0,0)]
