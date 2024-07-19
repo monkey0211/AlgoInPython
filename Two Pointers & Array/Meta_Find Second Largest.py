@@ -5,6 +5,7 @@ import collections
 
 def find_sencond_largest(nums: List[int]) -> int:
     # 将数字转换为字符串并计数
+    # nums = list(str(nums))
     counter = collections.Counter(nums)
     
     # 找最大和最小的digit

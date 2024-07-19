@@ -1,4 +1,3 @@
-import collections
 #time o(n)
 class Solution: 
     def checkPattern(self, s, pattern): 
@@ -13,19 +12,16 @@ class Solution:
         for i in range(len(pattern)):
             if pattern[i] in s:
                 if lastIndex == -1:
-                    lastIndex = index[pattern[i]]
+                    lastIndex = index[pattern[i]] #先找上一个的index
                     continue
                 else:
-                    currIndex = index[pattern[i]]
+                    currIndex = index[pattern[i]] 
                 if currIndex < lastIndex:
                     return False
                 lastIndex = currIndex
                 
         return True
- 
         
-     
-                
                 
 test = Solution()
 s = "engineers rock"     
