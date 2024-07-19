@@ -23,4 +23,17 @@ class Solution:
         self.dfs(root.left, res)
         self.dfs(root.right, res)
 
-        
+
+    # stack: iterative
+    def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
+        stack = [root]
+        range_sum =0
+        while stack:
+            node = stack.pop()
+            if low <= node.val <= high:
+                range_sum += node.val
+            if node.left:
+                stack.append(node.left)
+            if node.right:
+                stack.append(node.right)
+        return range_sum

@@ -1,6 +1,7 @@
     # https://www.youtube.com/watch?v=JqOIRBC0_9c 
     # 此题需要记录all possible results. LC139只需要返回True/False
     # dfs+ memo: 这里dfs都是需要返回值的dfs, 因为需要memo记录最后的结果
+    # 拆分为: left in wordDict + self.dfs(right)
     # memo一般都是用来记录最终结果, 在dfs里代表记录每个需要分隔的remaining的all possible result list(结果)
 import collections
 class Solution:

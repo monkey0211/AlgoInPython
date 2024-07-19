@@ -6,7 +6,10 @@
 #         self.right = None
 
 class Solution:
-    #先需要build parent: DFS. 然后bfs遍历每个node(while queue and distance<k), 进行level order. 
+    #                                   parent
+    #                                      |
+    #先需要build parent: DFS. 构建图 left - node - right
+    # 然后bfs遍历每个node(while queue and distance<k), 进行level order. 
     # 把满足条件的node.left, node.right, node.parent都加入queue+visited
     # 最后queue里剩下的就是答案
     def distanceK(self, root: TreeNode, target: TreeNode, k: int) -> List[int]:

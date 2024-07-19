@@ -50,4 +50,31 @@ class Solution:
         
 
 
-        
+    # method 2: 节省space版本: bfs without visited.
+    def shortestDistance(self, grid: List[List[int]]) -> int:
+        m, n = len(grid), len(grid[0])
+        dist, cnt = collections.defaultdict(int), 0
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == 1:
+                    self.bfs(grid, m, n, i, j, cnt, dist)
+                    cnt += 1 #cnt 表示找到了几个building
+                    
+        min_dist = float("inf")
+        for (x, y), step in dist.items():
+            if grid[x][y] == -cnt:
+                min_dist = min(min_dist, step)
+        return min_dist if min_dist != float("inf") else -1
+
+    def bfs(self, grid, m, n, i, j, cnt, dist):
+        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+        queue = collections.deque([(0, i, j)]) # step, x, y
+        while queue:
+            step, x, y = queue.popleft()
+            step += 1
+            for dx, dy in directions:
+                nx, ny = x + dx, y + dy
+                if 0 <= nx < m and 0 <= ny < n and grid[nx][ny] == -cnt:
+                    queue.append((step, nx, ny))
+                    grid[nx][ny] -= 1  #每走一步就把grid从0改到-1 -cnt就是找到的building个数
+                    dist[(nx, ny)] += step   

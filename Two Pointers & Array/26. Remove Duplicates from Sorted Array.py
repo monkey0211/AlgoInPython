@@ -23,6 +23,7 @@ class Solution:
             nums[left] = nums[right] #用nums[left] fill the value
             right += 1
             left += 1
+        print(nums[:left + 1]) #the array after removing duplicate
         return left #因为left最后又前进了一位, 所以就是长度
          
 
