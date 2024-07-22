@@ -22,9 +22,9 @@ import math
 # Answer: [[1, 1]]
 
 # 解法 time o(mn)
-# 对每个robot, 1st traversal we compute left and top distances. 如果是Blocker就更新left and top boundary.
-# 2nd traversal we compute bottom and right distances.
-# do a final traversal to see which robots match the query.
+# 对每个robot, 1st traversal 先计算 left and top distances. 如果是Blocker就更新left and top boundary.
+# 2nd traversal 再计算 bottom and right distances.
+# 3rd traversal: find the robot matching query
 from collections import defaultdict
 from typing import List
 
