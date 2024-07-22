@@ -35,10 +35,10 @@ class Solution:
         for x, y in prerequisites:
             graph[y].append(x)
             in_degree[x] += 1
-        self.find_all_topo_orders(res, graph, in_degree, [], numCourses, visited)
+        self.dfs(res, graph, in_degree, [], numCourses, visited)
         return res
 
-    def find_all_topo_orders(self, res, graph, in_degree, tmp, n, visited):
+    def dfs(self, res, graph, in_degree, tmp, n, visited):
         if len(tmp) == n:
             res.append(tmp[:])
             return
@@ -49,7 +49,7 @@ class Solution:
                 tmp.append(node)
                 for nei in graph[node]: #必须更新每一个neighbor的degree.
                     in_degree[nei] -= 1
-                self.find_all_topo_orders(res, graph, in_degree, tmp, n, visited)
+                self.dfs(res, graph, in_degree, tmp, n, visited)
                 for nei in graph[node]:
                     in_degree[nei] += 1
                 tmp.pop()
