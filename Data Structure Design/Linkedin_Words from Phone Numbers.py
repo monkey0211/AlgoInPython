@@ -36,10 +36,10 @@ class Solution:
                 res.append(word)
         return res
                 
-
-
-#adjust implementation for use case when new words can be added and existing words can be removed from the dictionary at runtime. 
-# pre-processing, create letterToDigit dict. 
+#part2: adjust implementation for use case when new words can be added and existing words can be removed from the dictionary at runtime. 
+#需要pre-processing, create letterToDigit dict. 
+# 优点: 节省function的处理时间 把处理都放在pre-processing阶段
+# 缺点: 1) if words are frequent changing, read queries很少进行的时候. 2) words数量少(体现不出优势)
         
     def wordsFromPhoneNumber2(self, phoneNumber):
         phoneNumber = str(phoneNumber)
@@ -49,13 +49,7 @@ class Solution:
             return self.wordDigits[phoneNumber]
         else:
             return ""
-            
-        
-        
-        
-        
-        
-        
+                  
 
 KEYBOARD = {"1":"",
             "2":"abc",

@@ -1,5 +1,7 @@
 from typing import List
 class Search:
+    # assumption: no duplicate
+    # followup: if single transpose/rotation or multiple, it is the same, no difference
     def search(self, nums: List[int], target: int) -> int:
         if not nums:
             return -1
@@ -19,9 +21,12 @@ class Search:
                     left = mid
                 else:
                     right = mid
-
+        print(left, right)
         if nums[left] == target:
             return left
         if nums[right] == target:
             return right
         return -1
+
+test = Search()
+print(test.search([1,1,1,2,0,1], 2))
