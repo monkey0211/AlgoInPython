@@ -3,7 +3,6 @@ class MedianFinder:
 #     heap: O(nlogn)
 # left half: maxHeap
 # right half: minHeap
-# 如果左右两边size相等, 放左边
 
     def __init__(self):
         self.left = []

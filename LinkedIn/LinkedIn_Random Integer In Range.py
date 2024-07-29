@@ -31,11 +31,39 @@ class Solution:
 
 # follow up: 
 # 1. how to test? how to test uniform distribution
+    # run for 10000 times. compare p and sum(res)/cnt(res)
 # 2. how to generate random integer in any range[x, y]
     # x + int(getRandom01Uniform() * (y - x + 1)) 
 # 3. given getRandom01Uniform() how to implement getRandom01Biased with outcome p and (1-p)
+    # Generate a sequence of bits using getRandom01Uniform().
+    # Interpret this sequence as a binary fraction to approximate a uniform random number between 0 and 1.
+    # Compare this number to p return 1 else return 0
+
     # def getRandom01Biased(p):
     #     if getRandom01Uniform() < p:
     #         return 1
     #     else:
     #         return 0
+
+
+# Variance: given random7 return random10
+# Testing the rand10 function:
+# 1. 先扔两次 产生49个数: num = ((first - 1) * 7 + second)
+# 2. 如果num<40, return num%10 + 1 如果大于,重复random10.
+
+import random
+
+def rand7():
+    return random.randint(1, 7)
+
+def rand10():
+    while True:
+        num1 = rand7()
+        num2 = rand7()
+        result = (num1 - 1) * 7 + num2  # Generates a number between 1 and 49
+        if result <= 40:
+            return (result % 10) + 1
+
+
+for _ in range(10):
+    print(rand10())

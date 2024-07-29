@@ -77,7 +77,7 @@ class MaxStack:
         self.stack = DoubleLinkedList(float('-inf')) # init a dummy node
         self.last = self.stack                       # reference the stack tail
         self.heap = []
-        self.hmap = collections.defaultdict(list)
+        self.dict = collections.defaultdict(list)
         
 
     def push(self, x: int) -> None:
@@ -93,7 +93,7 @@ class MaxStack:
         heapq.heappush(self.heap, -x)
         
         # append node the the map entry
-        self.hmap[x].append(node)
+        self.dict[x].append(node)
         
     def pop(self) -> int:
         # O(1)
@@ -102,9 +102,9 @@ class MaxStack:
         self.last = self.last.pre
         self.last.next = None
         
-        self.hmap[num].pop()
-        if not self.hmap[num]:
-            del self.hmap[num]
+        self.dict[num].pop()
+        if not self.dict[num]:
+            del self.dict[num]
         return num
 
     def top(self) -> int:
@@ -115,7 +115,7 @@ class MaxStack:
         # O(logN)
         # during the pop(), we didn't remove the element from heap
         # So here is to remove the the poped elements from heap
-        while -self.heap[0] not in self.hmap:
+        while -self.heap[0] not in self.dict:
             heapq.heappop(self.heap)
         
         return -self.heap[0]
@@ -124,9 +124,9 @@ class MaxStack:
         # O(logN) 因为peekMax是logN
        
         num = self.peekMax() #get max
-        node = self.hmap[num].pop()   # pop from map
-        if not self.hmap[num]: #可能有多个duplicate, 所以hmap可能没有了
-            del self.hmap[num]
+        node = self.dict[num].pop()   # pop from map
+        if not self.dict[num]: #可能有多个duplicate, 所以hmap可能没有了
+            del self.dict[num]
         
         # 如果pop的是tail: update the tail reference
         if node == self.last:
