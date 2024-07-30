@@ -49,7 +49,7 @@ class MaxStack:
             self.push(temp.pop()) #两个stack必须都要加回来    
         return result
         
-
+# thread-safe: TODO
 # Your MaxStack object will be instantiated and called as such:
 # obj = MaxStack()
 # obj.push(x)
@@ -59,7 +59,7 @@ class MaxStack:
 # param_5 = obj.popMax()
 
 
-    # method 2: doublelinkedlinst(作为stack) + maxHeap + defaultdict(list)
+# method 2: doublelinkedlinst(作为stack) + maxHeap + defaultdict(list)
 import collections
 import heapq
 class DoubleLinkedList:
@@ -76,11 +76,14 @@ class MaxStack:
         
         self.stack = DoubleLinkedList(float('-inf')) # init a dummy node
         self.last = self.stack                       # reference the stack tail
-        self.heap = []
-        self.dict = collections.defaultdict(list)
+        self.heap = [] # max heap(top元素就是求的max)
+        self.dict = collections.defaultdict(list) # val -> list of nodes
         
+        # thread-safe 
+        self.lock = threading.Lock()
 
     def push(self, x: int) -> None:
+        # 以下每个function都增加 with self.lock:
         # O(logn)
         node = DoubleLinkedList(x)
         

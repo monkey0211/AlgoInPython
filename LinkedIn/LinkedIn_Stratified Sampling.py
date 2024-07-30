@@ -7,6 +7,7 @@
 # else, 随机产生[0,j]随机数, 如果j <= M, replace j with nums[j].
 # 这样可以保证每一个被抽取的概率是M/N
 import collections
+import random
 
 
 class Example:
@@ -20,9 +21,6 @@ class Solution:
         counter = collections.defaultdict(int) # label -> cumulative cnt
         reservoir = collections.defaultdict(list) # label->list of samples
         
-        # for label in labelToCount:
-        #     reservoir[label].append(sample)
-        #     counter[label] += 1
         
         while sampleIterator.hasNext(): # or for each samples
             sample = sampleIterator.next() # or samples[i]
@@ -34,12 +32,12 @@ class Solution:
             if len(currRes) < M:
                 reservoir[label].append(sample)
             else:
-                random = random.randomint(0, cnt + 1) #??
-                if random < M: # 不曲等?
-                    reservoir[label] = sample
+                index = random.randint(0, cnt) #这里取下标j, 包括自己 一共cnt+1个
+                if index < M: # 不取等
+                    reservoir[label][index] = sample
             counter[label] += 1
-                
+        return reservoir
             
 # 直接想法: 给N个数 每一个都random assgin一个number, 然后sort取前M个 O(nlogN)不好, 存不下.
-# TODO: how to test:    
+# how to test:1)固定参数test 2) run 10000次, 每个被选中的item被选中次数m p = m/10000, 和M/N比较
         
