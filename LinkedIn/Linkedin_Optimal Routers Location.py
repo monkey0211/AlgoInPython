@@ -1,4 +1,4 @@
-# given list of houses, 如果只有一个router 放在哪里distance最短: mean of houses
+# given list of houses, 如果只有一个router 放在哪里distance最短(distance is MSE): mean of houses
 # sum(xi - r)^2 -> gradient is zero
 #如果有两个router, 
 

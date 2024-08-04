@@ -1,5 +1,7 @@
 # 转换为moving average问题: (n+1)的平均 用n的平均如何表示
-# (n+1) = X_b(n) + (Xn+1 - X_b(n))/(n+1)
+# avg(n+1) = avg(n) + (Xn+1 - avg(n))/(n+1)
+
+# variance: 
 
 class Solution:
     def __init__(self):

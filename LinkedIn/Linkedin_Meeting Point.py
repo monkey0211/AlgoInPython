@@ -1,11 +1,11 @@
 # N inidivuals standing at various points on a road in a city. 
 # Find a meeting point that the total distance traveled by all inidivuals is minimized.
 # 找一个距离所有点距离(MAE定义)最小的点x -> 就是在求medium: 
-; 如果奇数个数, 就是中点: nums[n//2]
-; 如果偶数个数,是两个中间数的anywhere都可以: nums[n//2-1]-nums[n//2]
+# 如果奇数个数, 就是中点: nums[n//2]
+# 如果偶数个数,是两个中间数的anywhere都可以: nums[n//2-1]-nums[n//2]
 # f(x) =  min(abs_dist(x-pi))
 
-# average O(n) time. 
+# average O(n) time.  worst o(n^2)
 class Solution:
     def findMedium(self, nums):
         index = self.quickSelect(nums, 0, len(nums) - 1, len(nums)//2)   
@@ -37,7 +37,8 @@ print(test.findMedium(nums1))
 print(test.findMedium(nums2)) 
 
 # 1.如果二维, 可以分别对(x, y)取medium即可(因为互相独立)
-# 2.如果travel cost带weights,minimize w|xi-p|的和(w>0), 可以把weights转换为频率. eg. (10, 1)(15,2)(50,1) -> (10,15,15,50)再找medium 
+# 2.如果travel cost带weights,minimize w|xi-p|的和(w>0), 可以把weights转换为频率. 
+# eg. (10, 1)(15,2)(50,1) -> (10,15,15,50)再找medium 
     # each pi repeated for wi times.
 # 3 if data is too large:分去不同机器
 

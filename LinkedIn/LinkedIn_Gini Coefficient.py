@@ -1,8 +1,10 @@
 # given the number of connections of each linekdin member, calculate the gini coefficient
 
 
-# 计算area的面积, 累加. 先构建一个dict: connection->多少个member, 画图 用%计算梯形面积
-#input: connectionCnt list for each member.
+# 先构建一个dict: connection-># of members,
+# 画图 % of connections->% of members
+# 计算area的面积, 累加 -> 计算梯形面积
+#input: connections: list of connection counts(index is memberId)
 
 def gini_coefficient(connections): 
     connectionMap = collections.defaultdict(int) # connection个数->memberCnt
@@ -10,8 +12,8 @@ def gini_coefficient(connections):
     connectionTotal = 0
     
     for i in range(len(connections)):
-        memberTotal += 1
-        connectionTotal += connections[i]
+        memberTotal += 1 # member total总数
+        connectionTotal += connections[i] # connection总数
         connectionMap[connections[i]] += 1 # connection数->memberCnt
     
     prevConnection = 0

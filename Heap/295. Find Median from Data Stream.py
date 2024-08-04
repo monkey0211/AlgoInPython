@@ -1,6 +1,6 @@
 class MedianFinder:
     
-#     heap: O(nlogn)
+# heap: O(nlogn)
 # left half: maxHeap
 # right half: minHeap
 

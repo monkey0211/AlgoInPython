@@ -10,23 +10,24 @@ import collections
 import random
 
 
-class Example:
-    def __init(self, label):
+class Sample:
+    def __init__(self, label):
         self.label = label
     def getLabel(self):
         return self.label
         
 class Solution:
-    def stratifiedSample(sampleIterator: str, requiredCountMap):
+  #  def stratifiedSample(sampleIterator: str, requiredCountMap):
+    def stratifiedSample(self, samples, requiredCountMap):
         counter = collections.defaultdict(int) # label -> cumulative cnt
         reservoir = collections.defaultdict(list) # label->list of samples
         
-        
-        while sampleIterator.hasNext(): # or for each samples
-            sample = sampleIterator.next() # or samples[i]
+        for sample in samples:
+        # while sampleIterator.hasNext(): # or for each samples
+        #     sample = sampleIterator.next() # or samples[i]
             label = sample.getLabel()
             currRes = reservoir[label] # get现在的reservoir
-            cnt = counter[label] # get现在的cnt
+            cnt = counter[label] # get现在该label一共数过的cnt
             M = requiredCountMap[label] #required count
             
             if len(currRes) < M:
@@ -40,4 +41,13 @@ class Solution:
             
 # 直接想法: 给N个数 每一个都random assgin一个number, 然后sort取前M个 O(nlogN)不好, 存不下.
 # how to test:1)固定参数test 2) run 10000次, 每个被选中的item被选中次数m p = m/10000, 和M/N比较
-        
+
+s1 = Sample("blue")
+s2 = Sample("blue")
+s3 = Sample("yellow")
+s4 = Sample("yellow")
+s5 = Sample("yellow")
+samples = [s1, s2, s3, s4, s5]
+requiredCountMap = {"blue": 1, "yellow":2}
+test = Solution()
+print(test.stratifiedSample(samples, requiredCountMap))
