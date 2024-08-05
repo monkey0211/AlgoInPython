@@ -4,7 +4,7 @@
 R = ["c", "f", "j", "p", "v"]
 
 def findInsPoint(R, char):
-    if char >= R[-1] or char < R[0]:
+    if char >= R[-1] or char < R[0]: #注意第一个和最后一个元素
         return R[0]
     left, right = 0, len(R) - 1
     while left + 1 < right:
@@ -21,7 +21,7 @@ def findInsPoint(R, char):
 
 print(findInsPoint(R, "a"))
     
-# # TODO: follow up:
+# follow up:
 # what if range were expanded beyond letters? case sensitivity
 # application: partition schema  
 # if duplicate? 也可以.(区别如果是找local min, worst o(n))
