@@ -1,8 +1,7 @@
 # job description distance:
 # find the smallest distance between two words in a sentence
-
+# ref: LC244: https://leetcode.com/problems/shortest-word-distance-ii/description/
 import collections
-
 
 class Solution:
     def __init__(self, wordList):
