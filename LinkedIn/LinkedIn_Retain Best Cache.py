@@ -14,6 +14,12 @@ class RetainBestCache:
         self.cache = {}
         self.rankHeap = []      
     
+    # Gets some data. 
+	#  * If possible, retrieves it from cache to be fast. If the data is not cached, 
+	#  * retrieves it from the data source. If the cache is full, attempt to cache the returned data, 
+	#  * evicting the T with lowest rank among the ones that it has available 
+	#  * If there is a tie, the cache may choose any T with lowest rank to evict. 
+	#  * 
     def get(self, key):
         if key in self.cache:
             return self.cache[key]

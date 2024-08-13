@@ -24,7 +24,7 @@ class Solution:
     #用三位数表示 000-111 一共8个candidate 二进制表示[0,6],if 7,重新抛三次. 
     def getRandom06Uniform(self):
         res = self.getRandom01Uniform() + 2 * self.getRandom01Uniform() + 4 * getRandom01Uniform()
-        if res > 6:
+        if res < 6:
             return res 
         else:
             return self.getRandom06Uniform() #重新来

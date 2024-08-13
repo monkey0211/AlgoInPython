@@ -75,15 +75,16 @@ class MaxStack:
         """
         
         self.stack = DoubleLinkedList(float('-inf')) # init a dummy node
-        self.last = self.stack                       # reference the stack tail
+        self.last = self.stack                       # reference the tail of stack
         self.heap = [] # max heap(top元素就是求的max)
-        self.dict = collections.defaultdict(list) # val -> list of nodes
+        self.dict = collections.defaultdict(list) # val -> 相应的list of nodes
         
         # thread-safe 
         self.lock = threading.Lock()
 
+    # push to tail
     def push(self, x: int) -> None:
-        # 以下每个function都增加 with self.lock:
+        # if multi-threading: with self.lock:
         # O(logn)
         node = DoubleLinkedList(x)
         
@@ -100,24 +101,25 @@ class MaxStack:
         
     def pop(self) -> int:
         # O(1)
-        # pop from the stack and remove from map
+        # pop tail element from stack and remove from map
         num = self.last.val
         self.last = self.last.pre
         self.last.next = None
         
         self.dict[num].pop()
-        if not self.dict[num]:
+        if not self.dict[num]: #如果没有了 删除key
             del self.dict[num]
         return num
 
     def top(self) -> int:
-        # O(1)
+        # O(1). stack的最后一个元素
         return self.last.val
 
     def peekMax(self) -> int:
         # O(logN)
         # during the pop(), we didn't remove the element from heap
-        # So here is to remove the the poped elements from heap
+        # So here is to remove the the poped elements from heap.
+        # 然后pop一个头部的
         while -self.heap[0] not in self.dict:
             heapq.heappop(self.heap)
         
@@ -127,15 +129,16 @@ class MaxStack:
         # O(logN) 因为peekMax是logN
        
         num = self.peekMax() #get max
-        node = self.dict[num].pop()   # pop from map
-        if not self.dict[num]: #可能有多个duplicate, 所以hmap可能没有了
+        node = self.dict[num].pop()   #找到num在dict的位置, pop from map
+        # 如果dict都没有了 删除key
+        if not self.dict[num]: 
             del self.dict[num]
         
         # 如果pop的是tail: update the tail reference
         if node == self.last:
             self.last = self.last.pre
         
-        # remove the node from stack(double linkedlist)
+        # remove the node from stack(double linkedlist), 连上剩下的
         if node.pre:
             node.pre.next = node.next
         if node.next:

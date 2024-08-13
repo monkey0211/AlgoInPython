@@ -1,4 +1,5 @@
 class Solution:
+    # DFS: input无重复元素, output可以重复(dfs从当前i继续开始)
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         if not candidates: return []
         res = []

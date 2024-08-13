@@ -1,3 +1,4 @@
+# f(x) = ax^2 + bx + c, output the sorted doubles f(x)
 # return the smallest character that is strictly larger than the search character,
 # otherwise return the first character in the String.
 
@@ -8,7 +9,7 @@ class Solution:
     # method1(下面): 先按照mean分leftHalf[] and rightHalf[], 然后merge two sorted list. 注意leftHalf是reversed(降序)
     # 如果a<0: rightHalf reverse即可.
     # time o(n), space o(n)
-    def sortTransformedArray(self, nums: List[int], a: int, b: int, c: int) -> List[int]:
+    def computeSortedFx(self, nums: List[int], a: int, b: int, c: int) -> List[int]:
         if a == 0:
             ans = [b * nums[i] + c for i in range(len(nums))]
             if b > 0:
@@ -55,7 +56,7 @@ class Solution:
 # https://leetcode.com/problems/sort-transformed-array/
 # time o(n) space o(1)
 
-    def sortTransformedArray(self, nums: List[int], a: int, b: int, c: int) -> List[int]:
+    def computeSortedFx(self, nums: List[int], a: int, b: int, c: int) -> List[int]:
         
             index = 0 if a < 0 else len(nums) - 1
             l, r = 0, len(nums) - 1

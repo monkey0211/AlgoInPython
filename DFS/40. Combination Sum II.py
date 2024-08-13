@@ -1,6 +1,6 @@
 class Solution:
     # output: no duplicate
-    # input: can be duplicate
+    # input: can be duplicate. dfs里需要去重if nums[i] == nums[i-1]
     def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
         if not candidates: return []
         candidates = sorted(candidates)

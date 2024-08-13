@@ -1,17 +1,20 @@
 class AllOne:
-#构建DLL: Node(0:{}) <-> Node(1:{hello}) -- Node(1:{hi, bags}) .....
-    # bucket of counts [(index, [list of vals])]
-    # map of key: index
+
+    # DLL: bucket of counts [(count, [list of vals])] # 每一个node是一个sorted count(0, 1, 2, ...inf)
+    # dict: key(str) -> bucket的key(也就是count)
     def __init__(self):
         self.bucket = DoubleLinkedList()
         self.dict = {} # map keys to nodes
 
     def inc(self, key: str) -> None:
+        # 如果key不在dict, 就创建一个新的node, 插入该位置
+        # 如果key在, 就在这个node后面增加一个new_node(index+1), 插入
         node = self.bucket.head if key not in self.dict else self.dict[key] # 如果不在dict里就是DLL的head
         new_node = self.bucket.incrementElement(node, key)
         self.dict[key] = new_node
 
     def dec(self, key: str) -> None:
+        # 根据key找到该node, decrement一个找它前面的node. 如果该node freq(index)是零, 就删除. else插入该位置
         node = self.dict[key]
         new_node = self.bucket.decrementElement(node, key)
         if new_node.index == 0:
@@ -20,26 +23,27 @@ class AllOne:
         else:
             self.dict[key] = new_node
 
-    # DLL的tail.prev
+    # DLL的tail.prev. DLL最后一个位置
     def getMaxKey(self) -> str:
         max_node = self.bucket.tail.prev
         if max_node.index == 0:
             return ""
-        for e in max_node.keys:
-            return e
+        for node in max_node.keys:
+            return node
 
-    # DLL的head.next
+    # DLL的head.next. DLL第一个位置
     def getMinKey(self) -> str:
         min_node = self.bucket.head.next
         if min_node.index < float("inf"):
-            for e in min_node.keys:
-                return e
+            for node in min_node.keys:
+                return node
         else:
             return ""
     
+
 class DoubleLinkedList:
     def __init__(self):
-        self.head = Node(0)
+        self.head = Node(0) # 头是0, 尾是inf
         self.tail = Node(float("inf"))
         self.head.next = self.tail
         self.tail.prev = self.head
@@ -62,10 +66,12 @@ class DoubleLinkedList:
         return correctNode
 
     def incrementElement(self, node, key):
+        
         if node.index != 0:
             node.removeElement(key)
         correctNode = None
-        if node.next.index == node.index + 1: #该node的下一个node存在
+        #if该node的下一个node存在
+        if node.next.index == node.index + 1: 
             correctNode = node.next
         else: #如果不存在, 创建一个新的node(index+1) 插入该位置
             correctNode = self.insertNext(node, node.index + 1)

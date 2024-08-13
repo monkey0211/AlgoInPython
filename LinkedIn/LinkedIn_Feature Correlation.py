@@ -1,4 +1,4 @@
-
+# given: featureVal - response. 分布不均匀 如何分桶
 # 如何知道这个feature是否对reponse有影响/is it ok to use the feature as it is?: 
 # 1) scatter plot.适用于少量数据. plt.scatter(x, y)
 # density of 0s is high when featureVal is low and 1's density high when featureVal is high

@@ -27,3 +27,8 @@ class Solution:
                 if i != j and newword in wordSet:
                     words.append(newword)
         return words
+
+# Linkedin Followup
+# 1. what change to make if this has to become an online service? how will you minimize latency?
+# pre-compute the pairs and store the paths. use all pair shorted path along with modifications to store the paths. 
+# handle updates to dictionaries. 
