@@ -15,6 +15,7 @@ class MultiHeadAttention(nn.Module):
         self.attention = ScaleDotProductAttention(scale = np.power(d_k, 0.5))
         
         self.fc_o = nn.Linear(n_head * d_v, d_o)
+        
     def forward(self, q, k, v, mask = None):
         n_head = self.n_head
         d_q = self.d_k

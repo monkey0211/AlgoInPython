@@ -1,4 +1,5 @@
 class Solution:
+    # input: no duplicate
     def permute(self, nums: List[int]) -> List[List[int]]:
         if not nums: return []
         res = []

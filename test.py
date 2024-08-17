@@ -1,75 +1,59 @@
-import collections
-# output all words that can be formed from any n-ditis phone number from the list of given KNOW_WORDS considering the mapping mentioned from phone number
-# time o (MN) M is length of wordList, N is length of maxWord. 
-class Solution:
-    def __init__(self, KNOWN_WORDS, KEYBOARD):
-        self.KNOWN_WORDS = KNOWN_WORDS
-        self.KEYBOARD = KEYBOARD
-        
-        #以下是part2优化部分: pre-processing
-        # 创建一个新的dict, 存letterToDict, 再创建一个defaultdict, 存word->number
-        self.letterToDigit = {}
-        for digit, letters in KEYBOARD.items():
-            for letter in letters:
-                self.letterToDigit[letter] = digit
-        
-        self.wordDigits = collections.defaultdict(list)
-        for word in KNOWN_WORDS:
-            tmp = ""
-            for i in range(len(word)):
-                tmp += self.letterToDigit[word[i]] 
-            self.wordDigits[tmp].append(word)
-        
-    def wordsFromPhoneNumber1(self, phoneNumber):
-        phoneNumber = str(phoneNumber)
-        res = []
-        for word in KNOWN_WORDS:
-            flag = False
-            for i in range(len(word)):
-                if len(phoneNumber) != len(word):
-                    break
-                if word[i] not in KEYBOARD[phoneNumber[i]]:
-                    break
-                if i == len(word) - 1:
-                    flag = True
-            if flag == True:
-                res.append(word)
-        return res
-                
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.is_end_of_word = False
+        self.word_sequence = None
 
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+    
+    def insert(self, word_sequence):
+        node = self.root
+        for word in word_sequence:
+            if word not in node.children:
+                node.children[word] = TrieNode()
+            node = node.children[word]
+        node.is_end_of_word = True
+        node.word_sequence = word_sequence  # 记录完整单词序列
+    
+    def search_longest_match(self, words, start_index):
+        node = self.root
+        longest_match = None
+        i = start_index
+        
+        while i < len(words) and words[i] in node.children:
+            node = node.children[words[i]]
+            if node.is_end_of_word:
+                longest_match = node.word_sequence
+            i += 1
+        
+        return longest_match
 
-#adjust implementation for use case when new words can be added and existing words can be removed from the dictionary at runtime. 
-# pre-processing, create letterToDigit dict. 
-        
-    def wordsFromPhoneNumber2(self, phoneNumber):
-        phoneNumber = str(phoneNumber)
-        
-            
-        if phoneNumber in self.wordDigits:
-            return self.wordDigits[phoneNumber]
+def tag_usernames(input_text, user_names):
+    # 构建 Trie 树
+    trie = Trie()
+    for name in user_names:
+        trie.insert(name.split())
+    
+    words = input_text.split()
+    i = 0
+    result = []
+    while i < len(words):
+        match = trie.search_longest_match(words, i)
+        if match:
+            result.append("@" + " ".join(match))
+            i += len(match)  # 跳过匹配的单词
         else:
-            return ""
-            
-        
-        
-        
-        
-        
-        
+            result.append(words[i])
+            i += 1
+    
+    return ' '.join(result)
 
-KEYBOARD = {"1":"",
-            "2":"abc",
-            "3":"def",
-            "4":"ghi",
-            "5":"jkl",
-            "6":"mno",
-            "7":"pqrs",
-            "8":"tuv",
-            "9":"wxyz"
-        }
-KNOWN_WORDS = ["careers", "linkedin", "hiring", "interview", "linkedgo"]
-phoneNumber1 = 54653346
-phoneNumber2 = 2273377
-test = Solution(KNOWN_WORDS, KEYBOARD)
-print(test.wordsFromPhoneNumber2(phoneNumber1))
-print(test.wordsFromPhoneNumber2(phoneNumber2))
+# 示例输入
+input_text = "Lucy Wang has an interview with John Chen"
+user_names = ["Lucy", "Wang", "Lucy Wang", "John", "Chen", "John Chen"]
+
+# 调用函数并输出结果
+output_text = tag_usernames(input_text, user_names)
+print(output_text)
