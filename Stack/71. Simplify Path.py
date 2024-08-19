@@ -20,3 +20,39 @@ class Solution:
                 stack.append(string)
                 
         return "/" + "/".join(stack)
+
+'''
+Meta version
+Given current directory and change directory path, return final path.
+
+For Example:
+Curent                 Change            Output
+
+/                    /facebook           /facebook
+/facebook/anin       ../abc/def          /facebook/abc/def
+/facebook/instagram   ../../../../.      /
+'''
+
+def change_path(cwd, cd) -> str:
+    path = cwd + "/" + cd
+    stack = []
+    for dir in path.split("/"):
+        if dir == ".":
+            continue
+        elif dir == "..":
+            if stack: 
+                stack.pop()
+        elif not dir:
+            stack.clear()
+        else:
+            stack.append(dir)
+
+    return "/" + "/".join(stack)
+
+# unit test
+cwd1 = '/facebook/anin'
+cd1 = '../abc/def'
+print(change_path(cwd1, cd1))
+cwd2 = '/'
+cd2 = '/facebook'
+print(change_path(cwd2, cd2))

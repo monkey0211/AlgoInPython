@@ -1,3 +1,6 @@
+
+from typing import List
+
 class Solution:
     # method 1: dp
     def uniquePaths(self, m: int, n: int) -> int:
@@ -76,3 +79,27 @@ class Solution:
         memo = set()
         dfs(0, 0, [])
         return len(paths)
+
+# 只是返回一条path 先直接往右走到头 再往下走到底 即可.
+def unique_one_path(m: int, n: int) -> List[List[int]]:
+    if m == 0 or n == 0:
+        return []
+    
+    # Initialize the path with the starting point
+    path = [(0, 0)]
+    
+    # Move right until we reach the rightmost column
+    while len(path) < n:
+        x, y = path[-1]
+        path.append((x, y + 1))
+    
+    # Move down until we reach the bottom row
+    while len(path) < m + n - 1:
+        x, y = path[-1]
+        path.append((x + 1, y))
+    
+    return path
+
+# Example usage
+result = unique_one_path(3, 7)
+print(result)
