@@ -23,4 +23,22 @@ class Solution:
 
         # 2. return的是左右Max + 1, 和above不一样
         return max(left, right) + 1
+    
+    # Aaron version: 用ret记录结果 不用类成员变量
+    def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
+        if not root: return 0
+        ret = [0]
+        self.maxHeight(root, ret)
+        return ret[0]
+
+    # 返回以root为根的子树 最大的height
+    # 注意height等于edge number, 不是node number
+    def maxHeight(self, root, ret) -> int:
+        if not root: return 0
+
+        left_ret = self.maxHeight(root.left, ret)
+        right_ret = self.maxHeight(root.right, ret)
+        ret[0] = max(ret[0], left_ret + right_ret)
+
+        return max(left_ret, right_ret) + 1
         

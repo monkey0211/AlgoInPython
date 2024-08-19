@@ -13,3 +13,18 @@ class Solution:
                 if res[-1][0] <= x <= res[-1][1]: #只有着一种情况需要更新end边界
                     res[-1][1] = max(res[-1][1], y)
         return res
+
+    # Aaron version
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        ret = []
+        intervals = sorted(intervals)
+
+        cur_left, cur_right = intervals[0][0], intervals[0][1]
+        for i in range(1, len(intervals)):
+            if intervals[i][0] > cur_right:
+                ret.append([cur_left, cur_right])
+                cur_left, cur_right = intervals[i][0], intervals[i][1]
+            else:
+                cur_right = max(cur_right, intervals[i][1])
+        ret.append([cur_left, cur_right])
+        return ret
