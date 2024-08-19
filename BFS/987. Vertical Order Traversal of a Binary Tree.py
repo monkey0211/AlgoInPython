@@ -6,10 +6,10 @@
 #         self.right = right
 class Solution:
     # 最后结果输出需要按左->右, 上->下排序 
-    # O(k * N/KlogN/k), k is the number of columns and O(n) to get from dict to result.
+    # O(k * N/KlogN/k) + O(N) = O(NlogN/k), k is the number of columns and O(N) for tree traversal
     def verticalTraversal(self, root: Optional[TreeNode]) -> List[List[int]]:
         if not root: return []
-        dict = collections.defaultdict(list) #dict[col] = (row, value)
+        dict = collections.defaultdict(list) # dict[col] = (row, value)
         queue = collections.deque([(root, 0, 0)])
         minj, maxj = 0, 0
 
