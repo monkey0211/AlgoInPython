@@ -1,4 +1,6 @@
 '''
+Given a binary array nums, 
+return the maximum length of a contiguous subarray with an equal number of 0 and 1.
 思路: 前缀和
 prefix[i]: 前i个数中 1的个数减去0的个数
 区间示意图:
