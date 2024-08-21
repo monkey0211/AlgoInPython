@@ -5,6 +5,9 @@ So, we update the current value to previous value which will help us in counting
 
 Time complexity = O(n)
 Space complexity = O(1)
+
+If the Valley or the hill happen to be first or last element, 
+then return -1 or any defined value, The expectancy to get this clarified before the Interview
 '''
 
 class Solution:
