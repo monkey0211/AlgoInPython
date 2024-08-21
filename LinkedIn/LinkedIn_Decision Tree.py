@@ -15,6 +15,7 @@ class Feature:
         return hash(self.name)
     
 class Instance:
+    #优化点: features用set不是list: assume所有的features都是binary, 只需要把positive的feature放入set. 节省空间
     def __init__(self, features: Set[Feature] = set(), label:bool = False):
         self.features = features
         self.label = label
@@ -32,7 +33,7 @@ def createDecisionTree(instances, features):
     if not instances or not features:
         return None
     # base case: 已经hit leaf node, 直接返回一个空root即可
-    # terminate condition: 如果所有instance的label值只有一个(pure)就可以terminate
+    # terminate condition: 需要讨论如何结束, 这里假设如果所有instance的label值只有一个(pure)就可以terminate
     if hitTerminationCondition(instances):
         return Node()
     

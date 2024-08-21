@@ -5,8 +5,9 @@
 #         self.left = None
 #         self.right = None
 
+import collections
 class Codec:
-
+    # BFS
     def serialize(self, root):
         """Encodes a tree to a single string.
         
@@ -27,7 +28,6 @@ class Codec:
         while res and res[-1] == "#":
             res.pop()
         return "{" + ",".join(map(str, res))+"}"
-
 
     def deserialize(self, data):
         """Decodes your encoded data to tree.
@@ -63,3 +63,6 @@ class Codec:
                     queue.append(nodes[i])
                 i += 1
         return root
+    
+    # BFS: serialize可以用level-order/pre-order traversal
+    
