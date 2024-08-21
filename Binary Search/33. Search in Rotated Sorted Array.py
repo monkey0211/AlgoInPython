@@ -21,7 +21,6 @@ class Search:
                     left = mid
                 else:
                     right = mid
-        print(left, right)
         if nums[left] == target:
             return left
         if nums[right] == target:

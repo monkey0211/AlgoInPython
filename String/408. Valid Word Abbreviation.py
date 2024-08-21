@@ -21,4 +21,17 @@ class Solution:
                 i += 1
                 j += 1
         return i == len(word) and j == len(abbr) #不能直接return True. 如果两个单词最后长度不同 还有剩余一个没有遍历完.
+'''
+Meta followup: (no need to code)
+2060. Check if an Original String Exists Given Two Encoded Strings
+思路
+"I would approach this using a combination of backtracking and dynamic programming. The solution would:
+- Recursively explore all possible interpretations of the strings
+- Handle digits and letters separately
+- Track the length difference between processed parts of the strings
+- Use backtracking to try different possibilities
+- Employ dynamic programming (memoization) to avoid redundant calculations
+- This method efficiently handles various interpretations of numbers 
+as letter sequences, determining if the two strings can be made equal."
+'''
         

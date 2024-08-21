@@ -7,9 +7,10 @@ class Solution:
         if not nums: return []
         counter = collections.Counter(nums)
         for key in counter:
-            heapq.heappush(heap, (counter[key], key))
-            if len(heap) > k:
-                heapq.heappop(heap)
+            if len(heap) < k:
+                heapq.heappush(heap, (counter[key], key))
+            elif counter[key] > heap[0][0]:
+                heapq.heappushpop(heap, (counter[key], key))
         
         while heap: # heap is same as stack: use while to get elements
             res.append(heapq.heappop(heap)[1])
@@ -77,9 +78,10 @@ class ListNode:
         min_heap = []
         
         for num, freq in frequency.items():
-            heapq.heappush(min_heap, (freq, num))
-            if len(min_heap) > k:
-                heapq.heappop(min_heap)
+            if len(min_heap) < k:
+                heapq.heappush(min_heap, (freq, num))
+            elif freq > min_heap[0][0]:
+                heapq.heappushpop(min_heap, (freq, num))
         
         # Step 3: Extract the elements from the heap
         result = []
@@ -108,3 +110,33 @@ class ListNode:
     # nums = create_linked_list([1])
     # k = 1
     # print(topKFrequent(nums, k))  # Output: [1]
+
+    # Aaron version of quick selection approach.
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        if not nums: return []
+        self.counter = collections.Counter(nums)
+        keys = list(self.counter.keys())
+        idx = self.partition(keys, k, 0, len(keys)-1)
+        return keys[:idx+1]
+    
+    def partition(self, keys, k, start, end) -> int:
+        if start >= end:                                # corner case: keys is empty. start = 0, end = -1
+            return start
+        left, right = start - 1, end + 1
+        # 注意这里pivot意义是频率!key对应原数组中的key的个数 用频率去做partition
+        pivot = self.counter[keys[(left + right) // 2]]
+        while left < right:
+            while True:
+                left += 1   # 从左到右 找频率<=pivot的key 放到右边去
+                if self.counter[keys[left]] <= pivot:
+                    break
+            while True:
+                right -= 1  # 从右到左 找频率>=pivot的key 放到左边去
+                if self.counter[keys[right]] >= pivot:
+                    break
+            if left < right:  # 注意这里只交换 不再进行指针移动
+                keys[left], keys[right] = keys[right], keys[left]
+        if k <= right - start + 1: # 区间[start,right] 有right-start+1个数
+            return self.partition(keys, k, start, right) # k落在左边
+        else:
+            return self.partition(keys, k - (right - start + 1), right + 1, end)

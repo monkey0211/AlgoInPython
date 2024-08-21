@@ -9,7 +9,7 @@ class TreeNode:
         self.left = left
         self.right = right
 class Solution:
-    # method 1: DFS preorder traversal
+    # method 1: DFS preorder traversal (node节点可以是multi-digit情况)
     def sumNumbers1(self, root: Optional[TreeNode]) -> int:
         if not root: return 0
         res = []
@@ -29,7 +29,7 @@ class Solution:
         if node.right:
             self.dfs(node.right, res, tmp)
     
-    # method 2: BFS queue
+    # method 2: BFS queue (只适用于node上是single digit情况)
     def sumNumbers2(self, root: Optional[TreeNode]) -> int:
         if not root: return 0
         total = 0

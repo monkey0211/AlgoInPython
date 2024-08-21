@@ -4,6 +4,7 @@
     # 拆分为: left in wordDict + self.dfs(right)
     # memo一般都是用来记录最终结果, 在dfs里代表记录每个需要分隔的remaining的all possible result list(结果)
 import collections
+from typing import List
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
         wordDict = set(wordDict)
@@ -26,7 +27,7 @@ class Solution:
             if left in wordDict:
                 nxt = self.dfs(right, wordDict, memo)
                 # 把拿到的left和next(is a list)进行拼接: dict[cats] + ["and dog", "an ddog", "a nddog"]
-                # 需要在if里面进行
+                # 需要在if里面进行下面的for循环
                 for item in nxt:
                     tmp.append(left + " " + item)
                 #meta变形题: 只需要输出一组任意解时:
@@ -34,3 +35,7 @@ class Solution:
         #put result into memo. must be outside of forloop.
         memo[remaining] = tmp
         return memo[remaining]
+    
+
+a = ["c","a","t","s"," ","a","n","d"," ","d","o","g"]
+print("".join(a))

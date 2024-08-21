@@ -1,5 +1,7 @@
 class Solution:
-    # two pointer: find the intersection
+    # two pointer: 先对调firstList&secondList if firstList大
+    # from left to right, iterate each pair find maxStart and minEnd. if <, append to res.
+    # smaller endpoint, move to next pointer
     def intervalIntersection(self, firstList: List[List[int]], secondList: List[List[int]]) -> List[List[int]]:
         res = []
         if not firstList or not secondList: return res

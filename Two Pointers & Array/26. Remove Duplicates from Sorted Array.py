@@ -18,7 +18,7 @@ class Solution:
         while right < len(nums):
             cur = nums[right]
             right = self.binary_search(nums, right, len(nums) - 1) #找等于当前值的最后一个位置 从当前位置开始二分
-            if cur != nums[right]: #如果没有duplicate, right指向的是第一个, 需要退后一位
+            if cur != nums[right]: # 如果没有duplicate, right指向的是第一个cur大的位置, 需要退后一位
                 right -= 1
             nums[left] = nums[right] #用nums[left] fill the value
             right += 1

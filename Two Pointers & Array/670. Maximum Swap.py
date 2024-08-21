@@ -7,11 +7,11 @@ class Solution:
         nums = list(str(num))
     
         for i in range(len(nums) - 1):
-            #1.from left to right: search the first max number
+            #1.from left to right: search the first increasing point, call it max
             if nums[i] < nums[i+1]:
                 pivot = i + 1
             
-                #2.from max to remaining, search for next max
+                #2.from max to remaining, search for next farest max
                 for j in range(i+1, len(nums)):
                     if nums[j]>= nums[pivot]:
                         pivot = j

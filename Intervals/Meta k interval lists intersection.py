@@ -22,7 +22,7 @@ https://www.1point3acres.com/bbs/forum.php?mod=viewthread&tid=1073573&page=1#pid
 '''
 from typing import List
 
-def merge_two_interval_lists(list1:List[int], list2:List[int]):
+def intersection_two_interval_lists(list1:List[int], list2:List[int]):
     i, j = 0, 0
     result = []
     while i < len(list1) and j < len(list2):
@@ -51,7 +51,7 @@ def find_intersection(intervals:List[List[List[int]]]) -> List[List[int]]:
     right = find_intersection(intervals[mid:])
     
     # 合并两个结果
-    return merge_two_interval_lists(left, right)
+    return intersection_two_interval_lists(left, right)
 
 # 测试用例
 intervals1 = [

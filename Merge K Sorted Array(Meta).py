@@ -1,4 +1,3 @@
-import collections
 import heapq
 from typing import List
 # heap: silimar to LC23: https://leetcode.com/problems/merge-k-sorted-lists/submissions/1219672656/

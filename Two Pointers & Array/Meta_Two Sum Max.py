@@ -1,5 +1,4 @@
 from typing import List 
-import sys
 '''
 给定一个nums数组 返回数组中两个元素的最大和. 要求这两个元素不能相邻.
 
