@@ -11,9 +11,9 @@
 #
 #    def isTarget(self) -> None:
 #        
-#
-# 此题没有grid 所以需要先dfs找到所有grid坐标(visited即可), 
-# 然后再bfs在这里找最短.(此时因为是在visited里面找, 每找到一个remove即可)
+
+# 此题没有grid和target 所以需要先dfs找到所有grid坐标(visited的即可), target cell
+# 然后再bfs在这里找最短.(此时因为是在visited里面找, 每找到一个反向remove即可)
 class Solution(object):
     def findShortestPath(self, master: 'GridMaster') -> int:
         directions = {'U': (-1, 0), 'D': (1, 0), 'L': (0, -1), 'R': (0, 1)}
@@ -46,7 +46,7 @@ class Solution(object):
         if master.isTarget():
             target.append((x, y)) #这里找到target不能return, 因为还需要找到其他所有grid.
             
-            #如果需要找任意一个路线:
+            #如果需要找任意一个路线(不是最短路):
             # path = tmp[:]
             # return 
             # for 后面需要:

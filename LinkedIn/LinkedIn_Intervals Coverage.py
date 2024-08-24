@@ -5,11 +5,14 @@ from sortedcontainers import SortedDict
 # i.addInterval(1, 5)
 # i.totalCoveredLength() -> 6
 
+# 1) array.insert()在 number of intervals small的时候可以用, 更efficient(memory continuous).但是需要二分
+# 2) 两种方式: 边insert边merge, 先insert再merge 
+
 class Intervals:
     # o(logN) for addInterval
     # o(1) for get total length
     # o(N) in space
-    def __init__a(self):
+    def __init__(self):
         # 使用有序字典保存区间起点和终点 intervals[start] = end
         self.intervals = SortedDict()
         self.length = 0
@@ -102,3 +105,6 @@ class Intervals:
         # 重新插入未被覆盖的部分
         for new_start, new_end in to_add:
             self.intervals[new_start] = new_end
+
+
+# compare merge-in-add vs. calculate-in-get
