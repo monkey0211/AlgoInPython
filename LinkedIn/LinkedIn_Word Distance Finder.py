@@ -3,9 +3,13 @@
 # ref: LC244: https://leetcode.com/problems/shortest-word-distance-ii/description/
 import collections
 
+# 初始化的时候, 事先存这个word的index: index -> [list of words]
+# 双指针遍历, 更新minDistance. 
 class Solution:
     def __init__(self, wordList):
         self.wordList = wordList
+        
+        # 事先存这个word的index: index -> [list of words]
         self.wordIndexDict = collections.defaultdict(list)
         for i in range(len(wordList)):
             self.wordIndexDict[wordList[i]].append(i)
