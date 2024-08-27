@@ -1,10 +1,6 @@
 
 from typing import Dict, List
-import numpy as np
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, classification_report, roc_auc_score
-
+import random
 
 FeatureMap = Dict[str, float]
 class LabelledInstance:
@@ -60,7 +56,6 @@ def evaluate(trainer: Trainer, dataset: List[LabelledInstance]) -> float:
 # 5. what if labels are skewed? imbalance问题. 结果bias, poor performance on minority. 
     #做法: 调整class weight, over-sampling, 改用ensemble methods.  
     
-
 # 改为k-folds(10-folds)方法
 def evaluate(trainer: Trainer, dataset: List[LabelledInstance]) -> float:
     '''Evaluate a training algorithm using 10-fold cross-validation'''
@@ -99,3 +94,74 @@ def evaluate(trainer: Trainer, dataset: List[LabelledInstance]) -> float:
     average_accuracy = total_accuracy / 10
     
     return average_accuracy
+
+
+'''
+下面这一版 实现了:
+1. stratified k fold: 确保每个fold中各个类别的比例与整个数据集相似
+2. 多个评估指标:准确率、精确率、召回率和F1分数。这些能更全面地反映模型在不平衡数据集上的表现。
+3. 返回一个包含所有2中指标的dict 而不是单一的float值 可以提供更全面的评估结果
+'''
+from collections import defaultdict
+
+def stratified_k_fold(dataset, k=10):
+    # Group instances by label
+    label_to_instances = defaultdict(list)
+    for instance in dataset:
+        label_to_instances[instance.get_label()].append(instance)
+    
+    # Create stratified folds
+    folds = [[] for _ in range(k)]
+    for instances in label_to_instances.values():
+        for i, instance in enumerate(instances):
+            folds[i % k].append(instance)
+    
+    return folds
+
+def calculate_metrics(y_true, y_pred):
+    tp = sum((t == p == 1) for t, p in zip(y_true, y_pred))
+    fp = sum((t == 0 and p == 1) for t, p in zip(y_true, y_pred))
+    fn = sum((t == 1 and p == 0) for t, p in zip(y_true, y_pred))
+    tn = sum((t == p == 0) for t, p in zip(y_true, y_pred))
+    
+    accuracy = (tp + tn) / (tp + tn + fp + fn) if tp + tn + fp + fn > 0 else 0
+    precision = tp / (tp + fp) if tp + fp > 0 else 0
+    recall = tp / (tp + fn) if tp + fn > 0 else 0
+    f1 = 2 * (precision * recall) / (precision + recall) if precision + recall > 0 else 0
+    
+    return {
+        'accuracy': accuracy,
+        'precision': precision,
+        'recall': recall,
+        'f1': f1
+    }
+
+def evaluate(trainer: Trainer, dataset: List[LabelledInstance]) -> dict:
+    '''Evaluate a training algorithm using stratified 10-fold cross-validation'''
+    
+    folds = stratified_k_fold(dataset, k=10)
+    all_metrics = defaultdict(list)
+    
+    for i in range(10):
+        val_data = folds[i]
+        train_data = [instance for j, fold in enumerate(folds) if j != i for instance in fold]
+        
+        classifier = trainer.train(train_data)
+        
+        y_true = []
+        y_pred = []
+        for instance in val_data:
+            features = instance.get_features()
+            true_label = instance.get_label()
+            predicted_label = classifier.classify(features)
+            y_true.append(true_label)
+            y_pred.append(predicted_label)
+        
+        fold_metrics = calculate_metrics(y_true, y_pred)
+        for metric, value in fold_metrics.items():
+            all_metrics[metric].append(value)
+    
+    # Calculate average metrics across all folds
+    avg_metrics = {metric: sum(values) / len(values) for metric, values in all_metrics.items()}
+    
+    return avg_metrics

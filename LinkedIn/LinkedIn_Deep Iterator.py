@@ -1,3 +1,4 @@
+from typing import List
 # given a nested collection, returning the iteration of the contents of the collections in order. 
 # eg. collection = [(1,3,5),(4,7,3),(2,3),4]
 # return [1,3,5,4,7,3,2,3,4]
@@ -59,7 +60,7 @@ class DeepIterator:
         
 
     # method 2: recursion
-    def __init__(self, dataList: [Data]):
+    def __init__(self, dataList: List[Data]):
         self.flattenedList = [] # 需要用全局list记录(remove的时候需要用)
         self.flatten(dataList)
         self.index = 0 #当前index
@@ -71,7 +72,7 @@ class DeepIterator:
     def hasNext(self):
         return self.index < len(self.flattenedList)
 
-    def flatten(self, dataList: [Data]):
+    def flatten(self, dataList: List[Data]):
         for item in dataList:
             if item.isCollection():
                 self.flatten(item.getCollection())
