@@ -79,3 +79,52 @@ test = Solution()
 print(test.stratifiedSample(samples, requiredCountMap))
 
 
+stratified sampling implementation:
+1.数据分组：使用defaultdict将数据按label_col的值进行分组，每个标签对应一个列表，存放该类别的数据。
+2.按比例抽样：计算每个类别在总数据中的比例，并按该比例抽取样本。
+3.random.sample：从每个类别的数据列表中随机抽取样本
+
+import random
+from collections import defaultdict
+
+def stratified_sampling(data, label_col, sample_size):
+    """
+    使用纯Python实现分层抽样
+    :param data: list of dicts, 每个元素为一个包含数据和标签的字典，例如 [{'feature1': 1.2, 'label': 'A'}, ...]
+    :param label_col: str, 类别标签所在的键名
+    :param sample_size: int, 总样本数量
+    :return: list of dicts, 抽取的样本
+    """
+    # 按照类别标签进行分组
+    grouped_data = defaultdict(list)
+    for item in data:
+        grouped_data[item[label_col]].append(item)
+    print(grouped_data)
+    # 计算总数据量
+    total_size = len(data)
+    
+    # 根据每个类别的比例计算抽样数，并从每个类别中随机抽取样本
+    stratified_sample = []
+    for label, items in grouped_data.items():
+        # 计算该类别需要抽取的样本数量
+        label_sample_size = int(len(items) / total_size * sample_size)
+        # 随机抽取样本
+        stratified_sample.extend(random.sample(items, label_sample_size))
+    
+    return stratified_sample
+
+# 示例数据
+data = [
+    {'feature1': 1.2, 'label': 'A'},
+    {'feature1': 2.3, 'label': 'B'},
+    {'feature1': 0.4, 'label': 'A'},
+    {'feature1': 1.5, 'label': 'C'},
+    {'feature1': 1.7, 'label': 'B'},
+    {'feature1': 3.1, 'label': 'C'},
+    # 更多数据...
+]
+
+# 设定样本总量为3
+sampled_data = stratified_sampling(data, label_col='label', sample_size=3)
+
+print(sampled_data)
