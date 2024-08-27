@@ -8,35 +8,61 @@
 # 这样可以保证每一个被抽取的概率是M/N
 import collections
 import random
+import threading
 
-
+class SampleIterator:
+    def __init__(self, start, end):
+        self.start = start
+        self.end = end
+        self.lock = threading.Lock()  # InstanceIterator 
+        
+    def has_next(self) -> bool:
+        with self.lock:
+            return self.cur < self.end
+    
+    def next(self) -> Instance:
+        with self.lock:
+            if self.cur >= self.end:
+                raise StopIteration
+            instance = Instance(f"Label_{self.cur}")  # 创建新的 Instance 对象
+            self.cur += 1
+            return instance
+    
 class Sample:
     def __init__(self, label):
         self.label = label
+        # Instance 类不需要任何同步机制
+        # 1. 它是不可变的（label 在初始化后不会改变）
+        # 2. 每次调用 InstanceIterator.next() 都会创建一个新实例
+        # 3. 它没有修改内部状态的方法
+    
     def getLabel(self):
         return self.label
         
 class Solution:
-  #  def stratifiedSample(sampleIterator: str, requiredCountMap):
-    def stratifiedSample(self, samples, requiredCountMap):
+    def stratifiedSample(sampleIterator: SampleIterator, requiredCountMap):
         counter = collections.defaultdict(int) # label -> cumulative cnt
         reservoir = collections.defaultdict(list) # label->list of samples
         
-        for sample in samples:
-        # while sampleIterator.hasNext(): # or for each samples
-        #     sample = sampleIterator.next() # or samples[i]
-            label = sample.getLabel()
-            currRes = reservoir[label] # get现在的reservoir
-            cnt = counter[label] # get现在该label一共数过的cnt
-            M = requiredCountMap[label] #required count
+        lock = threading.Lock() #followup加锁: 这个锁用于保护reservoir和counter
+        
+        while sampleIterator.hasNext(): # or for each samples
+            sample = sampleIterator.next() # or samples[i]
+            label = sample.getLabel() 
             
-            if len(currRes) < M:
-                reservoir[label].append(sample)
-            else:
-                index = random.randint(0, cnt) #这里取下标j, 包括自己 一共cnt+1个
-                if index < M: # 不取等
-                    reservoir[label][index] = sample
-            counter[label] += 1
+            with lock: #followup加锁:
+                
+                currRes = reservoir[label] # get现在的reservoir
+                cnt = counter[label] # get现在该label一共数过的cnt
+                M = requiredCountMap[label] #required count
+                
+                if len(currRes) < M:
+                    reservoir[label].append(sample)
+                else:
+                    index = random.randint(0, cnt) #这里取下标j, 包括自己 一共cnt+1个
+                    if index < M: # 不取等
+                        reservoir[label][index] = sample
+                counter[label] += 1
         return reservoir
             
 # 直接想法: 给N个数 每一个都random assgin一个number, 然后sort取前M个 O(nlogN)不好, 存不下.
@@ -51,3 +77,5 @@ samples = [s1, s2, s3, s4, s5]
 requiredCountMap = {"blue": 1, "yellow":2}
 test = Solution()
 print(test.stratifiedSample(samples, requiredCountMap))
+
+
