@@ -12,6 +12,7 @@ class Solution:
         for digit, letters in KEYBOARD.items():
             for letter in letters:
                 self.letterToDigit[letter] = digit
+        print(self.letterToDigit)
         
         self.wordDigits = collections.defaultdict(list)
         for word in KNOWN_WORDS:
@@ -20,6 +21,7 @@ class Solution:
                 tmp += self.letterToDigit[word[i]] 
             self.wordDigits[tmp].append(word)
         
+        print(self.wordDigits)
     def wordsFromPhoneNumber1(self, phoneNumber):
         phoneNumber = str(phoneNumber)
         res = []

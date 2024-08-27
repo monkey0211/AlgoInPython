@@ -41,7 +41,7 @@ class Solution:
             
 # 直接想法: 给N个数 每一个都random assgin一个number, 然后sort取前M个 O(nlogN)不好, 存不下.
 # how to test:1)固定参数test 2) run 10000次, 每个被选中的item被选中次数m p = m/10000, 和M/N比较
-
+# followup: implement a parallelism version TODO
 s1 = Sample("blue")
 s2 = Sample("blue")
 s3 = Sample("yellow")

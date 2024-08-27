@@ -1,8 +1,9 @@
 # N inidivuals standing at various points on a road in a city. 
 # Find a meeting point that the total distance traveled by all inidivuals is minimized.
+
 # 找一个距离所有点距离(MAE定义)最小的点x -> 就是在求medium: 
 # 如果奇数个数, 就是中点: nums[n//2]
-# 如果偶数个数,是两个中间数的anywhere都可以: nums[n//2-1]-nums[n//2]
+# 区别正常medium(可能是小数): 如果偶数个数,是两个中间数的anywhere都可以: nums[n//2-1]-nums[n//2]
 # f(x) =  min(abs_dist(x-pi))
 
 # average O(n) time.  worst o(n^2)

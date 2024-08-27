@@ -1,13 +1,6 @@
 from sortedcontainers import SortedDict
-# i = Intervals()
-# i.addInterval(3, 6)
-# i.addInterval(8, 9)
-# i.addInterval(1, 5)
-# i.totalCoveredLength() -> 6
-
 # 1) array.insert()在 number of intervals small的时候可以用, 更efficient(memory continuous).但是需要二分
 # 2) 两种方式: 边insert边merge, 先insert再merge 
-
 class Intervals:
     # o(logN) for addInterval
     # o(1) for get total length
@@ -79,6 +72,7 @@ class Intervals:
     #         return sum(self.total_lengths.values())
     
     # followup2: provide a removeInterval(start, end) method which will remove all coverage between start and end.
+    # 删除接口复杂度: O(klogn) n:现有区间数量 k:与要移除区间重叠的区间数量
     def removeInterval(self, start, end):
         index = self.intervals.bisect_left(start)
         to_add = [] # 记录remove之后被拆分出来的新的interval
@@ -86,25 +80,44 @@ class Intervals:
         # 查找并移除重叠部分
         while index < len(self.intervals):
             curr_start, curr_end = self.intervals.peekitem(index)
+            # 当前区间起点已在end之后->后面不会再有重叠 退出while
             if curr_start >= end:
                 break
+            # 当前区间的终点在start之前 也不会有overlap 得往后接着看
             if curr_end <= start:
-                index += 1
+                index += 1 # 这里记得+1 否则死循环
                 continue
 
             self.length -= min(end, curr_end) - max(start, curr_start)
-
+            # 当前区间起点小于start 需保留前半部分
             if curr_start < start:
                 to_add.append((curr_start, start))
+            # 当前区间终点大于end 需保留后半部分
             if curr_end > end:
                 to_add.append((end, curr_end))
-            
+            # 删除当前区间 index指向这轮删除当前区间后的 下一个可能重叠的区间
             del self.intervals[curr_start]
             index = self.intervals.bisect_left(start)
 
-        # 重新插入未被覆盖的部分
+        # 插入由于删除操作产生的 小的新区间
         for new_start, new_end in to_add:
             self.intervals[new_start] = new_end
 
 
 # compare merge-in-add vs. calculate-in-get
+
+# unit test
+i1 = Intervals()
+i1.addInterval(3, 6)
+i1.addInterval(8, 9)
+i1.addInterval(1, 5)
+lenth1 = i1.totalCoveredLength() # 6
+print(lenth1)
+
+i2 = Intervals()
+i2.addInterval(1, 3)
+i2.addInterval(2, 3)
+i2.addInterval(4, 5)
+i2.addInterval(1, 9)
+lenth2 = i2.totalCoveredLength() # 8
+print(lenth2)
