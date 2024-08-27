@@ -1,8 +1,6 @@
 # given system method that generates random bits uniformly
 # create a function that emulates biased coin, with given probability.
 # precision is within 10e-2
-
-
 import random
 
 def generateBiasedCoinUsingBitRandomNumber(prob):

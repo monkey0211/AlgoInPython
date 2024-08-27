@@ -1,4 +1,5 @@
 import collections
+from typing import List
 class Solution:
     # method 1: BFS直接遍历26个字母找neighbor as nextWord
     def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
