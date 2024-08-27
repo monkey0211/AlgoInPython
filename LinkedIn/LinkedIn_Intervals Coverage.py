@@ -71,6 +71,21 @@ class Intervals:
     #     else:
     #         return sum(self.total_lengths.values())
     
+    # 二分
+    def binarySearch(self, intervals, target):
+        left, right = 0, len(intervals) - 1
+        while left + 1 < right:
+            mid = (left + right) // 2
+            if intervals[mid][0] < target:
+                left = mid
+            else:
+                right = mid
+        if intervals[right][0] <= target:
+            return right
+        else:
+            return left
+
+    
     # followup2: provide a removeInterval(start, end) method which will remove all coverage between start and end.
     # 删除接口复杂度: O(klogn) n:现有区间数量 k:与要移除区间重叠的区间数量
     def removeInterval(self, start, end):
